@@ -28,8 +28,10 @@ export default function Home() {
 
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
-    let path = '/results/' + searchParam; 
-    navigate(path);
+    if (searchParam) {
+      let path = '/results/' + searchParam; 
+      navigate(path);
+    }
   }
 
   return <div>

@@ -61,7 +61,7 @@ export default function SearchResults() {
           autoComplete="off"
         >
           <Button variant="contained">Search</Button>
-          <TextField id="outlined-basic" variant="outlined" value={searchParam}/>
+          <TextField id="outlined-basic" variant="outlined" defaultValue={searchParam}/>
         </Box>
       </div>
 

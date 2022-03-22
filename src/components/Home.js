@@ -12,7 +12,7 @@ export default function Home() {
   const [searchParam, setSearchParam] = useState("");
 
   useEffect(() => {
-        fetch("https://worldos.earth/api/v1/contract/0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804")
+        fetch("https://worldos.earth/v1/contract/0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804")
             .then(res => res.json())
             .then(
                 (data) => {

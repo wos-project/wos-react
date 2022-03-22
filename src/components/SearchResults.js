@@ -23,7 +23,7 @@ function Copyright() {
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        WorldOS.earth
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -48,14 +48,14 @@ export default function SearchResults() {
         <Toolbar>
           <CameraIcon sx={{ mr: 2 }} />
           <Typography variant="h6" color="inherit" noWrap>
-            World Objects
+            WOS
           </Typography>
 
           <div>
         <Box
           component="form"
           sx={{
-            '& > :not(style)': { m: 1, width: '35ch' },
+            '& > :not(style)': { m: 5, width: '35ch' },
           }}
           noValidate
           autoComplete="off"

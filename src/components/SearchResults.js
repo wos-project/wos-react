@@ -15,6 +15,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import { useParams } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -34,6 +36,11 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const theme = createTheme();
 
 export default function SearchResults() {
+
+  let { searchParam } = useParams();
+
+  console.log(searchParam)
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -41,8 +48,23 @@ export default function SearchResults() {
         <Toolbar>
           <CameraIcon sx={{ mr: 2 }} />
           <Typography variant="h6" color="inherit" noWrap>
-            Album layout
+            World Objects
           </Typography>
+
+          <div>
+        <Box
+          component="form"
+          sx={{
+            '& > :not(style)': { m: 1, width: '35ch' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <Button variant="contained">Search</Button>
+          <TextField id="outlined-basic" variant="outlined" value={searchParam}/>
+        </Box>
+      </div>
+
         </Toolbar>
       </AppBar>
       <main>
@@ -62,7 +84,7 @@ export default function SearchResults() {
               color="text.primary"
               gutterBottom
             >
-              Album layout
+              World Objects
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
               blah blah blah

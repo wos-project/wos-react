@@ -4,30 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useState, useEffect }  from 'react';
+import background from '../earth_background.jpg'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export default function Home() {
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [contract, setContract] = useState(null);
   const [searchParam, setSearchParam] = useState("");
 
-  useEffect(() => {
-    fetch("https://worldos.earth/v1/contract/0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804")
-        .then(res => res.json())
-        .then(
-            (data) => {
-                setIsLoaded(true);
-                setContract(data);
-            },
-            (error) => {
-                setIsLoaded(true);
-                setError(error);
-            }
-        );
-    // Mock the contract data here so we can test
-    // Need to hack the cover image URL since is empty
-    setContract({"uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6g","walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d","walletKind":"ropsten.ethereum","ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr","name":"Chinese Tea Room at the Marble House pin","description":"","coverImageUri":"","contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804"})
-  }, [])
 
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
@@ -37,8 +19,10 @@ export default function Home() {
     }
   }
 
-  return <div>
-      <div>
+
+  return <div style={{backgroundImage: `url(${background})`, height: '100vh', width: '100vw', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
+      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '75vh', flexDirection: 'column'}}>
+        <Box component="div" style={{color: 'white', fontSize: 50, fontWeight: 'bold'}}>The World Object Store</Box>
         <Box
           component="form"
           sx={{
@@ -47,8 +31,24 @@ export default function Home() {
           noValidate
           autoComplete="off"
         >
-          <Button variant="contained" onClick={routeChange}>Search</Button>
-          <TextField id="outlined-basic" label="Place, contract, or wallet address" variant="outlined" onChange={e => setSearchParam(e.target.value)}/>
+          <Button variant="contained" onClick={routeChange} style={{height: '75%'}}>Search</Button>
+          <TextField 
+            id="outlined-basic" 
+            label="Place, contract, or wallet address" 
+            variant="outlined" 
+            onChange={e => setSearchParam(e.target.value)}
+            style={{height: '75%'}}
+            InputLabelProps={{
+              style: { color: '#fff'},
+            }}
+            sx={{
+
+              width: { sm: 250, md: 350 },
+              // border: "solid white 1px",
+              // "& .MuiFilledInput-input": { color: "white" }
+              input: {color: "white"}
+              
+            }}/>
         </Box>
       </div>
     </div>;

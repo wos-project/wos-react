@@ -31,24 +31,27 @@ export default function Home() {
           noValidate
           autoComplete="off"
         >
-          <Button variant="contained" onClick={routeChange} style={{height: '75%'}}>Search</Button>
           <TextField 
-            id="outlined-basic" 
+            id="filled-basic" 
             label="Place, contract, or wallet address" 
-            variant="outlined" 
+            variant="filled" 
             onChange={e => setSearchParam(e.target.value)}
             style={{height: '75%'}}
             InputLabelProps={{
               style: { color: '#fff'},
             }}
             sx={{
-
               width: { sm: 250, md: 350 },
+              "& .MuiOutlinedInput-root:hover": {
+                "& > fieldset": {
+                  borderColor: "white"
+                }
+              },
               // border: "solid white 1px",
               // "& .MuiFilledInput-input": { color: "white" }
               input: {color: "white"}
-              
             }}/>
+            <Button variant="contained" onClick={routeChange} style={{marginTop: 25}}>Search</Button>
         </Box>
       </div>
     </div>;

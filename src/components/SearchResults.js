@@ -68,16 +68,18 @@ export default function SearchResults() {
       "name":"Chinese Tea Room at the Marble House pin",
       "description":"",
       "coverImageUri":"",
-      "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804"},
+      "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
+      "location": {"lat": "41.4901", "lon": "-71.3128"}},
       {
       "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6g",
       "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
       "walletKind":"ropsten.ethereum",
       "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
       "name":"Chinese Tea Room at the Marble House pin",
-      "description":"",
+      "description":"test123",
       "coverImageUri":"",
-      "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804"}])
+      "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
+      "location": {"lat": "41.4901", "lon": "-71.3128"}}])
   }, [])
 
   console.log(searchParam)
@@ -88,29 +90,45 @@ export default function SearchResults() {
       <AppBar position="relative" 
         style={{
           backgroundImage: `url(${background_img})`, 
-          height: '10%', 
-          width: '100vw', 
-          backgroundPosition: 'center', 
+          height: 200, 
+          width: '100%', 
+          backgroundPosition: 'center 37%', 
           backgroundSize: 'cover', 
           backgroundRepeat: 'no-repeat'}}>
         <Toolbar>
-          <CameraIcon sx={{ mr: 2 }} />
           <Typography variant="h6" color="inherit" noWrap>
             WOS
           </Typography>
 
-          <div>
+        <div>
         <Box
           component="form"
           sx={{
-            '& > :not(style)': { m: 5, width: '35ch' },
+            '& > :not(style)': { mr: 5, mt: 5 },
+            alignItems: 'center'
           }}
           noValidate
           autoComplete="off"
         >
-          <Button variant="contained" style={{height: 53}}>Search</Button>
-          <TextField id="outlined-basic" variant="outlined" defaultValue={searchParam}/>
-        </Box>
+          <Box sx={{display: 'flex'}} style={{marginRight: 20, marginLeft: 10}}>
+            <TextField 
+            id="filled-basic" 
+            variant="outlined" 
+            label="Place, contract, or wallet address" 
+            defaultValue={searchParam}
+            InputLabelProps={{
+              style: { color: '#fff'},
+            }}
+            sx={{
+              // border: "solid white 1px",
+              // "& .MuiFilledInput-input": { color: "white" }
+              input: {color: "white"},
+              width: '75%',
+            }}/>
+            <Button variant="contained" style={{height: 53, width: 300, marginLeft: 10}}>Search</Button>
+
+          </Box>
+          </Box>
       </div>
 
         </Toolbar>
@@ -119,30 +137,17 @@ export default function SearchResults() {
         {/* Hero unit */}
         <Box
           sx={{
-            // bgcolor: 'background.paper',
-            bgcolor: 'white',
+            bgcolor: 'background.paper',
             pt: 6,
             pb: 0,
           }}
         >
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
-              sx={{fontWeight: 'bold'}}
-            >
-              World Objects
-            </Typography>
-          </Container>
         </Box>
         <Container sx={{ py: 4 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
             {contracts.map((contract) => (
-              <Grid item key={contract} xs={18} sm={9} md={6}>
+              <Grid item key={contract} xs={12} sm={9} md={6}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
@@ -185,6 +190,12 @@ export default function SearchResults() {
                     </Typography>
                     <Typography noWrap>
                       {contract['contractAddr']}
+                    </Typography>
+                    <Typography variant="caption" sx={{fontWeight: 'bold'}}>
+                      Location:
+                    </Typography>
+                    <Typography noWrap>
+                      {contract['location']['lat']} {contract['location']['lon']}
                     </Typography>
                   </CardContent>
                   <CardActions>

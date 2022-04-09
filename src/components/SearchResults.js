@@ -1,14 +1,12 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -19,7 +17,7 @@ import TextField from '@mui/material/TextField';
 import { useParams } from "react-router-dom";
 import background_img from '../earth_background.jpg'
 import { useState, useEffect }  from 'react';
-
+import TopBar from './TopBar';
 
 function Copyright() {
   return (
@@ -78,7 +76,7 @@ export default function SearchResults() {
       "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
       "location": {"lat": "41.4901", "lon": "-71.3128"}},
       {
-      "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6g",
+      "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6gmm",
       "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
       "walletKind":"ropsten.ethereum",
       "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
@@ -89,11 +87,12 @@ export default function SearchResults() {
       "location": {"lat": "41.4901", "lon": "-71.3128"}}])
   }, [])
 
-  console.log(searchParam)
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
+      <TopBar>
+      </TopBar>
+
       <AppBar position="relative" 
         style={{
           backgroundImage: `url(${background_img})`, 
@@ -102,37 +101,38 @@ export default function SearchResults() {
           backgroundPosition: 'center 37%', 
           backgroundSize: 'cover', 
           backgroundRepeat: 'no-repeat'}}>
-        <Toolbar>
-
-        <Box component="div" height="80%" width="100%">
-          <Grid container direction="column" justifyContent="flex-center" alignItems="center" rowGap={2}>
-            <Grid item xs={12} md={4}>
-              <Box component="div">
-                <ThemeProvider theme={logoTheme}>
-                  <Typography variant="h5">
-                    The World Object Store
-                  </Typography>
-                </ThemeProvider>
-              </Box>
-            </Grid>
-            <Grid container direction="row" justifyContent="center" alignItems="center" spacing={1}>
-              <Grid item xs={12} md={4} >
-                <TextField 
-                hiddenlabel
-                variant="standard"
-                fullWidth="true"
-                sx={{
-                  input: {color: "black"},
-                  backgroundColor: "white"
-                }}/>        
+          <Toolbar>
+          <Box component="div" height="80%" width="100%">
+            <Grid container direction="column" justifyContent="flex-center" alignItems="center" rowGap={2}>
+              <Grid item xs={12} md={4}>
+                <Box component="div">
+                  <ThemeProvider theme={logoTheme}>
+                    <Typography variant="h5">
+                      The World Object Store
+                    </Typography>
+                  </ThemeProvider>
+                </Box>
               </Grid>
-              <Grid item xs={5} md={2}>
-                <Button variant="contained" fullWidth="true">Search</Button>
+              <Grid container direction="row" justifyContent="center" alignItems="center" spacing={1}>
+                <Grid item xs={12} md={4} >
+                  <TextField 
+                  hiddenlabel="true"
+                  variant="standard"
+                  fullWidth
+                  sx={{
+                    input: {color: "black"},
+                    backgroundColor: "white"
+                  }}/>        
+                </Grid>
+                <Grid item xs={5} md={2}>
+                  <Button variant="contained" fullWidth>Search</Button>
+                </Grid>
+                <Grid item xs={5} md={2}>
+                  <Button variant="contained" fullWidth>By Location</Button>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Box>
-
+          </Box>
         </Toolbar>
       </AppBar>
       <main>
@@ -149,7 +149,7 @@ export default function SearchResults() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {contracts.map((contract) => (
-              <Grid item key={contract} xs={12} sm={9} md={6}>
+              <Grid item key={contract.uid} xs={12} sm={9} md={6}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >

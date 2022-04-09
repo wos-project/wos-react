@@ -26,7 +26,7 @@ function Copyright() {
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        WorldOS.earth
+        sp8ial.com
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -44,6 +44,13 @@ export default function SearchResults() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [contracts, setContracts] = useState([]);
+
+  const logoTheme = createTheme({
+    typography: {
+      fontFamily: [
+        'Saira',
+      ].join(','),
+    },});  
 
   useEffect(() => {
     fetch("https://worldos.earth/v1/contract/0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804")
@@ -90,46 +97,41 @@ export default function SearchResults() {
       <AppBar position="relative" 
         style={{
           backgroundImage: `url(${background_img})`, 
-          height: 200, 
+          height: 150, 
           width: '100%', 
           backgroundPosition: 'center 37%', 
           backgroundSize: 'cover', 
           backgroundRepeat: 'no-repeat'}}>
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            WOS
-          </Typography>
 
-        <div>
-        <Box
-          component="form"
-          sx={{
-            '& > :not(style)': { mr: 5, mt: 5 },
-            alignItems: 'center'
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <Box sx={{display: 'flex'}} style={{marginRight: 20, marginLeft: 10}}>
-            <TextField 
-            id="filled-basic" 
-            variant="outlined" 
-            label="Place, contract, or wallet address" 
-            defaultValue={searchParam}
-            InputLabelProps={{
-              style: { color: '#fff'},
-            }}
-            sx={{
-              // border: "solid white 1px",
-              // "& .MuiFilledInput-input": { color: "white" }
-              input: {color: "white"},
-              width: '75%',
-            }}/>
-            <Button variant="contained" style={{height: 53, width: 300, marginLeft: 10}}>Search</Button>
-
-          </Box>
-          </Box>
-      </div>
+        <Box component="div" height="80%" width="100%">
+          <Grid container direction="column" justifyContent="flex-center" alignItems="center" rowGap={2}>
+            <Grid item xs={12} md={4}>
+              <Box component="div">
+                <ThemeProvider theme={logoTheme}>
+                  <Typography variant="h5">
+                    The World Object Store
+                  </Typography>
+                </ThemeProvider>
+              </Box>
+            </Grid>
+            <Grid container direction="row" justifyContent="center" alignItems="center" spacing={1}>
+              <Grid item xs={12} md={4} >
+                <TextField 
+                hiddenlabel
+                variant="standard"
+                fullWidth="true"
+                sx={{
+                  input: {color: "black"},
+                  backgroundColor: "white"
+                }}/>        
+              </Grid>
+              <Grid item xs={5} md={2}>
+                <Button variant="contained" fullWidth="true">Search</Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Box>
 
         </Toolbar>
       </AppBar>
@@ -211,7 +213,7 @@ export default function SearchResults() {
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
-          Footer
+          sp8ial
         </Typography>
         <Typography
           variant="subtitle1"
@@ -219,7 +221,7 @@ export default function SearchResults() {
           color="text.secondary"
           component="p"
         >
-          Something here to give the footer a purpose!
+          Pin, Track, Find World Objects
         </Typography>
         <Copyright />
       </Box>

@@ -18,6 +18,9 @@ export default function HamburgerMenu() {
   const handleNavHome = () => {
     navigate("/");
   }
+  const handleNavDeveloper = () => {
+    window.location.href = "https://github.com/wos-project";
+  }
 
   return (
     <div>
@@ -44,7 +47,7 @@ export default function HamburgerMenu() {
         <MenuItem onClick={handleClose}>My NFTs</MenuItem>
         <MenuItem onClick={handleClose}>Create Tracker</MenuItem>
         <MenuItem onClick={handleClose}>View Stats</MenuItem>
-        <MenuItem onClick={handleClose}>Developers</MenuItem>
+        <MenuItem onClick={handleNavDeveloper}>Developers</MenuItem>
         <MenuItem onClick={handleClose}>Documentation</MenuItem>
         <MenuItem onClick={handleClose}>About</MenuItem>
       </Menu>

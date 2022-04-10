@@ -18,7 +18,7 @@ export default function Home() {
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
     if (searchParam) {
-      let path = '/results/' + searchParam; 
+      let path = '/search/' + searchParam; 
       navigate(path);
     }
   }

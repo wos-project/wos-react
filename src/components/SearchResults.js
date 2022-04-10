@@ -27,7 +27,6 @@ function Copyright() {
         sp8ial.com
       </Link>{' '}
       {new Date().getFullYear()}
-      {'.'}
     </Typography>
   );
 }
@@ -38,10 +37,14 @@ const theme = createTheme();
 
 export default function SearchResults() {
 
-  let { searchParam } = useParams();
+  const { searchParam } = useParams();
   const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [contracts, setContracts] = useState([]);
+  const [results, setResults] = useState([]);
+  const [searchText, setSearchText] = useState(searchParam);
+
+  useEffect(() => {
+    getResults();
+  }, [])
 
   const logoTheme = createTheme({
     typography: {
@@ -50,42 +53,55 @@ export default function SearchResults() {
       ].join(','),
     },});  
 
-  useEffect(() => {
-    fetch("https://worldos.earth/v1/contract/0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804")
-        .then(res => res.json())
-        .then(
-            (data) => {
-                setIsLoaded(true);
-                setContracts(data);
-            },
-            (error) => {
-                setIsLoaded(true);
-                setError(error);
-            }
-        );
-    // Mock the contract data here so we can test
-    // Need to hack the cover image URL since is empty
-    setContracts([{
-      "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6g",
-      "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
-      "walletKind":"ropsten.ethereum",
-      "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
-      "name":"Chinese Tea Room at the Marble House pin",
-      "description":"",
-      "coverImageUri":"",
-      "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
-      "location": {"lat": "41.4901", "lon": "-71.3128"}},
+  const getResults = () => {
+
+    //setSearchText("0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804");
+
+    let url = "https://worldos.earth/v1/"
+    if (searchText.slice(0,2) == "0x") {
+      url += "contract/" + searchText;
+    } else {
+      // TODO: adjust
+      url += "contract/" + searchText;
+    }
+
+    fetch(url)
+      .then((res) => res.json())
+      .then(
+          (data) => {
+            data["location"] = {"lat": "41.4901", "lon": "-71.3128"}
+            let d = [data];
+            setResults(d);
+          },
+          (error) => {
+            setError(error);
+          }
+      );
+
+    setResults([
       {
-      "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6gmm",
-      "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
-      "walletKind":"ropsten.ethereum",
-      "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
-      "name":"Chinese Tea Room at the Marble House pin",
-      "description":"test123",
-      "coverImageUri":"",
-      "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
-      "location": {"lat": "41.4901", "lon": "-71.3128"}}])
-  }, [])
+        "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6g",
+        "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
+        "walletKind":"ropsten.ethereum",
+        "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
+        "name":"Chinese Tea Room at the Marble House pin",
+        "description":"",
+        "coverImageUri":"",
+        "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
+        "location": {"lat": "41.4901", "lon": "-71.3128"}
+      },{
+        "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6gmm",
+        "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
+        "walletKind":"ropsten.ethereum",
+        "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
+        "name":"Chinese Tea Room at the Marble House pin",
+        "description":"test123",
+        "coverImageUri":"",
+        "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
+        "location": {"lat": "41.4901", "lon": "-71.3128"}
+      }
+    ])  
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -114,8 +130,10 @@ export default function SearchResults() {
                 </Box>
               </Grid>
               <Grid container direction="row" justifyContent="center" alignItems="center" spacing={1}>
-                <Grid item xs={12} md={4} >
+                <Grid item xs={12} md={5} >
                   <TextField 
+                  value={searchText}
+                  onChange={e => setSearchText(e.target.value)}
                   hiddenlabel="true"
                   variant="standard"
                   fullWidth
@@ -125,7 +143,7 @@ export default function SearchResults() {
                   }}/>        
                 </Grid>
                 <Grid item xs={5} md={2}>
-                  <Button variant="contained" fullWidth>Search</Button>
+                  <Button variant="contained" fullWidth onClick={getResults}>Search</Button>
                 </Grid>
                 <Grid item xs={5} md={2}>
                   <Button variant="contained" fullWidth>By Location</Button>
@@ -148,8 +166,8 @@ export default function SearchResults() {
         <Container sx={{ py: 4 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {contracts.map((contract) => (
-              <Grid item key={contract.uid} xs={12} sm={9} md={6}>
+            {results.map((result) => (
+              <Grid item key={result.uid} xs={12} sm={9} md={6}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
@@ -164,40 +182,40 @@ export default function SearchResults() {
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      {contract['name']}
+                      {result['name']}
                     </Typography>
                     <Typography>
-                      {contract['description']}
+                      {result['description']}
                     </Typography>
                     <Typography variant="caption" sx={{fontWeight: 'bold'}}>
                       Wallet Address:
                     </Typography>
                     <Typography noWrap>
-                      {contract['walletAddr']}
+                      {result['walletAddr']}
                     </Typography>
                     <Typography variant="caption" sx={{fontWeight: 'bold'}}>
                       Wallet Kind:
                     </Typography>
                     <Typography>
-                      {contract['walletKind']}
+                      {result['walletKind']}
                     </Typography>
                     <Typography variant="caption" sx={{fontWeight: 'bold'}}>
                       IPFS CID:
                     </Typography>
                     <Typography noWrap>
-                      {contract['ipfsCid']}
+                      {result['ipfsCid']}
                     </Typography>
                     <Typography variant="caption" sx={{fontWeight: 'bold'}}>
                       Contract Address:
                     </Typography>
                     <Typography noWrap>
-                      {contract['contractAddr']}
+                      {result['contractAddr']}
                     </Typography>
                     <Typography variant="caption" sx={{fontWeight: 'bold'}}>
                       Location:
                     </Typography>
                     <Typography noWrap>
-                      {contract['location']['lat']} {contract['location']['lon']}
+                      {result['location']['lat']} {result['location']['lon']}
                     </Typography>
                   </CardContent>
                   <CardActions>

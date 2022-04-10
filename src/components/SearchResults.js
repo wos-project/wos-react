@@ -24,7 +24,7 @@ function Copyright() {
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        sp8ial.com
+        Questori LLC
       </Link>{' '}
       {new Date().getFullYear()}
     </Typography>
@@ -231,7 +231,7 @@ export default function SearchResults() {
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
-          sp8ial
+          Questori
         </Typography>
         <Typography
           variant="subtitle1"

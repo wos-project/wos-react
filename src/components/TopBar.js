@@ -65,6 +65,7 @@ export default function TopBar() {
         </Search>
       }
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        Beta
       </Typography>
       <Button color="inherit">Login</Button>
     </Toolbar>

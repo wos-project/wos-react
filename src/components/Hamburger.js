@@ -68,6 +68,7 @@ export default function HamburgerMenu() {
         }}
       >
         <MenuItem onClick={handleNavHome}>Home</MenuItem>
+        <MenuItem onClick={handleClose}>Connect Wallet</MenuItem>
         <MenuItem onClick={handleClose}>My NFTs</MenuItem>
         <MenuItem onClick={handleClose}>Create Tracker</MenuItem>
         <MenuItem onClick={handleClose}>View Stats</MenuItem>

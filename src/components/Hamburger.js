@@ -4,25 +4,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Button from '@mui/material/Button';
+import DialogComingSoon from './DialogComingSoon';
+import { useState, useRef }  from 'react';
 
 export default function HamburgerMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const [openComingSoon, setOpenComingSoon] = React.useState(false);
-
-  const handleOpenComingSoon = () => {
-    setOpenComingSoon(true);
-  };
-
-  const handleCloseComingSoon = () => {
-    setOpenComingSoon(false);
-  };
+  const dialogEl = useRef(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,7 +18,7 @@ export default function HamburgerMenu() {
 
   const handleClose = () => {
     setAnchorEl(null);
-    handleOpenComingSoon()
+    dialogEl.current.open();
   };
 
   let navigate = useNavigate();
@@ -77,24 +65,8 @@ export default function HamburgerMenu() {
         <MenuItem onClick={handleClose}>About</MenuItem>
       </Menu>
 
-      <Dialog
-        open={openComingSoon}
-        onClose={handleCloseComingSoon}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Coming Soon!"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            This feature is in development and coming soon.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseComingSoon}>Okay</Button>
-        </DialogActions>
-      </Dialog>
+      <DialogComingSoon ref={dialogEl}></DialogComingSoon>
+
     </div>
   );
 }

@@ -7,6 +7,8 @@ import HamburgerMenu from './Hamburger';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+import { useRef }  from 'react';
+import DialogComingSoon from './DialogComingSoon';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -49,6 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function TopBar() {  
+  const dialogEl = useRef(null);
 
   return <AppBar position="static">
     <Toolbar variant="dense">
@@ -67,7 +70,8 @@ export default function TopBar() {
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
         Beta
       </Typography>
-      <Button color="inherit">Login</Button>
+      <Button color="inherit" onClick={() => dialogEl.current.open()}>Login</Button>
     </Toolbar>
+    <DialogComingSoon ref={dialogEl}></DialogComingSoon>
   </AppBar>;
 }

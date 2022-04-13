@@ -18,6 +18,10 @@ export default function HamburgerMenu() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleComingSoon = () => {
+    setAnchorEl(null);
     dialogEl.current.open();
   };
 
@@ -56,12 +60,12 @@ export default function HamburgerMenu() {
         }}
       >
         <MenuItem onClick={handleNavHome}>Home</MenuItem>
-        <MenuItem onClick={handleClose}>My NFTs</MenuItem>
-        <MenuItem onClick={handleClose}>Create Tracker</MenuItem>
-        <MenuItem onClick={handleClose}>View Stats</MenuItem>
+        <MenuItem onClick={handleComingSoon}>My NFTs</MenuItem>
+        <MenuItem onClick={handleComingSoon}>Create Tracker</MenuItem>
+        <MenuItem onClick={handleComingSoon}>View Stats</MenuItem>
         <MenuItem onClick={handleNavDeveloper}>Developers</MenuItem>
         <MenuItem onClick={handleNavDocumentation}>Documentation</MenuItem>
-        <MenuItem onClick={handleClose}>About</MenuItem>
+        <MenuItem onClick={handleComingSoon}>About</MenuItem>
       </Menu>
 
       <DialogComingSoon ref={dialogEl}></DialogComingSoon>

@@ -12,10 +12,12 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import TopBar from './TopBar';
 import DialogComingSoon from './DialogComingSoon';
+import CircularProgress from  '@mui/material/CircularProgress';
 
 export default function Home() {
   const [searchParam, setSearchParam] = useState("");
   const dialogEl = useRef(null);
+  const [showPb, setShowPb] = useState(false);
 
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
@@ -39,9 +41,20 @@ export default function Home() {
         'Saira',
       ].join(','),
     },});  
-  
+
+  const getLatLong = () => {
+    setShowPb(true);
+    navigator.geolocation.getCurrentPosition(function(position) {
+      let lat = position.coords.latitude;
+      let lon = position.coords.longitude;
+      let path = `/search/lat=${lat}&lon=${lon}`; 
+      navigate(path);
+    });
+  }
+
   return <div style={{backgroundImage: `url(${background})`, height: '100vh', width: '100vw', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
-    <TopBar></TopBar>
+    <TopBar>
+    </TopBar>
     <Box component="div" height="10%"></Box>
     <Grid container direction="column" justifyContent="flex-end" alignItems="center" rowGap={2}>
       <Grid item xs={12} md={4} >
@@ -58,6 +71,7 @@ export default function Home() {
           <TextField 
             hiddenlabel="true"
             variant="standard"
+            placeholder="Search text, place or contract address"
             fullWidth
             onChange={e => setSearchParam(e.target.value)}
             sx={{
@@ -69,11 +83,11 @@ export default function Home() {
           <Button variant="contained" fullWidth onClick={routeChange}>Search</Button>
         </Grid>
         <Grid item xs={5} md={2}>
-          <Button variant="contained" fullWidth onClick={() => dialogEl.current.open()}>By Location</Button>
+          <Button variant="contained" fullWidth onClick={getLatLong}>By Location</Button>
         </Grid>
       </Grid>
+      <Grid>{ showPb ? <CircularProgress /> : "" }</Grid>
     </Grid>
-
     <DialogComingSoon ref={dialogEl}></DialogComingSoon>
 
     </div>;

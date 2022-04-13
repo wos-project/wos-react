@@ -7,8 +7,10 @@ import HamburgerMenu from './Hamburger';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
-import { useRef }  from 'react';
+import { useRef, useState }  from 'react';
 import DialogComingSoon from './DialogComingSoon';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,6 +54,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function TopBar() {  
   const dialogEl = useRef(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openComingSoon = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return <AppBar position="static">
     <Toolbar variant="dense">
@@ -70,7 +82,20 @@ export default function TopBar() {
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
         Beta
       </Typography>
-      <Button color="inherit" onClick={() => dialogEl.current.open()}>Login</Button>
+      <Button color="inherit" onClick={handleClick}>Connect Wallet</Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={openComingSoon}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose}>Metamask</MenuItem>
+        <MenuItem onClick={handleClose}>Coinbase</MenuItem>
+        <MenuItem onClick={handleClose}>Gemini</MenuItem>
+      </Menu>
     </Toolbar>
     <DialogComingSoon ref={dialogEl}></DialogComingSoon>
   </AppBar>;

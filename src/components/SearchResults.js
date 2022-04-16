@@ -18,6 +18,9 @@ import { useParams } from "react-router-dom";
 import background_img from '../earth_background.jpg'
 import { useState, useEffect }  from 'react';
 import TopBar from './TopBar';
+import { IconButton } from '@mui/material';
+import copy from "copy-to-clipboard";  
+import ContentCutIcon from '@mui/icons-material/ContentCut';
 
 function Copyright() {
   return (
@@ -67,40 +70,38 @@ export default function SearchResults() {
 
     fetch(url)
       .then((res) => res.json())
-      .then(
-          (data) => {
-            data["location"] = {"lat": "41.4901", "lon": "-71.3128"}
-            let d = [data];
-            setResults(d);
-          },
-          (error) => {
-            setError(error);
-          }
-      );
-
-    setResults([
-      {
-        "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6g",
-        "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
-        "walletKind":"ropsten.ethereum",
-        "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
-        "name":"Chinese Tea Room at the Marble House pin",
-        "description":"",
-        "coverImageUri":"",
-        "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
-        "location": {"lat": "41.4901", "lon": "-71.3128"}
-      },{
-        "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6gmm",
-        "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
-        "walletKind":"ropsten.ethereum",
-        "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
-        "name":"Chinese Tea Room at the Marble House pin",
-        "description":"test123",
-        "coverImageUri":"",
-        "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
-        "location": {"lat": "41.4901", "lon": "-71.3128"}
-      }
-    ])  
+      .then((data) => {
+          data["location"] = {"lat": "41.4901", "lon": "-71.3128"}
+          let d = [data];
+          setResults(d);
+        },
+        (error) => {
+          setError(error);
+          setResults([
+            {
+              "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6g",
+              "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
+              "walletKind":"ropsten.ethereum",
+              "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
+              "name":"Chinese Tea Room at the Marble House pin",
+              "description":"",
+              "coverImageUri":"",
+              "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
+              "location": {"lat": "41.4901", "lon": "-71.3128"}
+            },{
+              "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6gmm",
+              "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
+              "walletKind":"ropsten.ethereum",
+              "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
+              "name":"Chinese Tea Room at the Marble House pin",
+              "description":"test123",
+              "coverImageUri":"",
+              "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
+              "location": {"lat": "41.4901", "lon": "-71.3128"}
+            }
+          ]) 
+        }
+      ); 
   }
 
   return (
@@ -187,40 +188,60 @@ export default function SearchResults() {
                     <Typography>
                       {result['description']}
                     </Typography>
-                    <Typography variant="caption" sx={{fontWeight: 'bold'}}>
-                      Wallet Address:
-                    </Typography>
-                    <Typography noWrap>
-                      {result['walletAddr']}
-                    </Typography>
-                    <Typography variant="caption" sx={{fontWeight: 'bold'}}>
-                      Wallet Kind:
-                    </Typography>
-                    <Typography>
-                      {result['walletKind']}
-                    </Typography>
-                    <Typography variant="caption" sx={{fontWeight: 'bold'}}>
-                      IPFS CID:
-                    </Typography>
+                    <Box>
+                      <Typography variant="caption" sx={{fontWeight: 'bold'}}>
+                        Wallet Address
+                      </Typography>
+                      <IconButton onClick={() => {copy(result['walletAddr'])}}>
+                        <ContentCutIcon fontSize='small'></ContentCutIcon>
+                      </IconButton>
+                    </Box>
+                    <Box>
+                      <Typography noWrap>
+                        {result['walletAddr']}
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Typography variant="caption" sx={{fontWeight: 'bold'}}>
+                        Wallet Kind
+                      </Typography>
+                      <Typography>
+                        {result['walletKind']}
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Typography variant="caption" sx={{fontWeight: 'bold'}}>
+                        IPFS CID
+                      </Typography>
+                      <IconButton onClick={() => {copy(result['ipfsCid'])}}>
+                        <ContentCutIcon fontSize='small'></ContentCutIcon>
+                      </IconButton>
+                    </Box>
                     <Typography noWrap>
                       {result['ipfsCid']}
                     </Typography>
-                    <Typography variant="caption" sx={{fontWeight: 'bold'}}>
-                      Contract Address:
-                    </Typography>
+                    <Box>
+                      <Typography variant="caption" sx={{fontWeight: 'bold'}}>
+                        Contract Address
+                      </Typography>
+                      <IconButton onClick={() => {copy(result['contractAddr'])}}>
+                        <ContentCutIcon fontSize='small'></ContentCutIcon>
+                      </IconButton>
+                    </Box>
                     <Typography noWrap>
                       {result['contractAddr']}
                     </Typography>
                     <Typography variant="caption" sx={{fontWeight: 'bold'}}>
-                      Location:
+                      Location
                     </Typography>
                     <Typography noWrap>
                       {result['location']['lat']} {result['location']['lon']}
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
+                    <Button size="small">Buy</Button>
+                    <Button size="small">Sell</Button>
+                    <Button size="small">Stats</Button>
                   </CardActions>
                 </Card>
               </Grid>

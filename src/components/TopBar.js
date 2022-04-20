@@ -7,10 +7,11 @@ import HamburgerMenu from './Hamburger';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
-import { useRef, useState }  from 'react';
+import { useRef, useState, useEffect }  from 'react';
 import DialogComingSoon from './DialogComingSoon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import ProfileMenu from './ProfileMenu';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -82,20 +83,7 @@ export default function TopBar() {
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
         Beta
       </Typography>
-      <Button color="inherit" onClick={handleClick}>Connect Wallet</Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={openComingSoon}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={handleClose}>Metamask</MenuItem>
-        <MenuItem onClick={handleClose}>Coinbase</MenuItem>
-        <MenuItem onClick={handleClose}>Gemini</MenuItem>
-      </Menu>
+      <ProfileMenu></ProfileMenu>
     </Toolbar>
     <DialogComingSoon ref={dialogEl}></DialogComingSoon>
   </AppBar>;

@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-import { useState, forwardRef, useImperativeHandle }  from 'react';
+import { forwardRef, useImperativeHandle }  from 'react';
 
 export default DialogComingSoon = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({

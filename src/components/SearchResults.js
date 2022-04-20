@@ -56,12 +56,38 @@ export default function SearchResults() {
       ].join(','),
     },});  
 
+  const handleError = () => {
+    setResults([
+      {
+        "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6g",
+        "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
+        "walletKind":"ropsten.ethereum",
+        "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
+        "name":"Chinese Tea Room at the Marble House pin",
+        "description":"",
+        "coverImageUri":"",
+        "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
+        "location": {"lat": "41.4901", "lon": "-71.3128"}
+      },{
+        "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6gmm",
+        "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
+        "walletKind":"ropsten.ethereum",
+        "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
+        "name":"Chinese Tea Room at the Marble House pin",
+        "description":"test123",
+        "coverImageUri":"",
+        "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
+        "location": {"lat": "41.4901", "lon": "-71.3128"}
+      }   
+    ])
+  }
+
   const getResults = () => {
 
     //setSearchText("0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804");
 
     let url = "https://worldos.earth/v1/"
-    if (searchText.slice(0,2) == "0x") {
+    if (searchText.slice(0,2) === "0x") {
       url += "contract/" + searchText;
     } else {
       // TODO: adjust
@@ -69,7 +95,14 @@ export default function SearchResults() {
     }
 
     fetch(url)
-      .then((res) => res.json())
+      .then((response) => {
+        if (!response.ok) {
+          handleError();
+        }
+        else {
+          return response.json();
+        }
+      })
       .then((data) => {
           data["location"] = {"lat": "41.4901", "lon": "-71.3128"}
           let d = [data];
@@ -77,29 +110,7 @@ export default function SearchResults() {
         },
         (error) => {
           setError(error);
-          setResults([
-            {
-              "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6g",
-              "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
-              "walletKind":"ropsten.ethereum",
-              "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
-              "name":"Chinese Tea Room at the Marble House pin",
-              "description":"",
-              "coverImageUri":"",
-              "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
-              "location": {"lat": "41.4901", "lon": "-71.3128"}
-            },{
-              "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6gmm",
-              "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
-              "walletKind":"ropsten.ethereum",
-              "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
-              "name":"Chinese Tea Room at the Marble House pin",
-              "description":"test123",
-              "coverImageUri":"",
-              "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
-              "location": {"lat": "41.4901", "lon": "-71.3128"}
-            }
-          ]) 
+          handleError(); 
         }
       ); 
   }
@@ -239,9 +250,11 @@ export default function SearchResults() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Buy</Button>
-                    <Button size="small">Sell</Button>
-                    <Button size="small">Stats</Button>
+                    <Button size="small" onClick={() => alert("Click to show on map")}>Explore</Button>
+                    <Button size="small" onClick={() => alert("Click to buy or sell")}>Buy/Sell</Button>
+                    <Button size="small" onClick={() => alert("Click to add a tracker")}>Track</Button>
+                    <Button size="small" onClick={() => alert("Click to show stats")}>Stats</Button>
+                    <Button size="small" onClick={() => alert("Click to show in-app if available")}>In-App</Button>
                   </CardActions>
                 </Card>
               </Grid>

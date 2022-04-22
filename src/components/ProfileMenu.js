@@ -29,19 +29,6 @@ export default function ProfileMenu() {
     dialogEl.current.open();
   };
 
-  let navigate = useNavigate();
-  const handleNavHome = () => {
-    navigate("/");
-  }
-
-  const handleNavDeveloper = () => {
-    window.location.href = "https://github.com/wos-project";
-  }
-
-  const handleNavDocumentation = () => {
-    window.location.href = "https://github.com/wos-project/wos-protocol-spec"
-  }
-
   const detectCurrentProvider = () => {
     let provider;
     if (window.ethereum) {
@@ -56,6 +43,19 @@ export default function ProfileMenu() {
       );
     }
     return provider;
+  };
+
+  const handleSignMessage = ({ publicAddress, nonce }) => {
+    return new Promise((resolve, reject) =>
+      Web3.personal.sign(
+        Web3.fromUtf8(`I am signing my one-time nonce: ${nonce}`),
+        publicAddress,
+        (err, signature) => {
+          if (err) return reject(err);
+          return resolve({ publicAddress, signature });
+        }
+      )
+    );
   };
 
   const onConnect = async () => {

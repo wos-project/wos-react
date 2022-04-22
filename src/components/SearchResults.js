@@ -21,6 +21,7 @@ import TopBar from './TopBar';
 import { IconButton } from '@mui/material';
 import copy from "copy-to-clipboard";  
 import ContentCutIcon from '@mui/icons-material/ContentCut';
+import { useNavigate } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -113,6 +114,11 @@ export default function SearchResults() {
           handleError(); 
         }
       ); 
+  }
+
+  let navigate = useNavigate();
+  const handleReports = () => {
+    navigate("/report");
   }
 
   return (
@@ -253,7 +259,7 @@ export default function SearchResults() {
                     <Button size="small" onClick={() => alert("Click to show on map")}>Explore</Button>
                     <Button size="small" onClick={() => alert("Click to buy or sell")}>Buy/Sell</Button>
                     <Button size="small" onClick={() => alert("Click to add a tracker")}>Track</Button>
-                    <Button size="small" onClick={() => alert("Click to show stats")}>Stats</Button>
+                    <Button size="small" onClick={handleReports}>Stats</Button>
                     <Button size="small" onClick={() => alert("Click to show in-app if available")}>In-App</Button>
                   </CardActions>
                 </Card>

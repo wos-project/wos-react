@@ -1,16 +1,13 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Toolbar } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
-import HamburgerMenu from './Hamburger';
+import HamburgerMenu from './HamburgerMenu';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
-import { useRef, useState, useEffect }  from 'react';
+import { useRef, useState }  from 'react';
 import DialogComingSoon from './DialogComingSoon';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import ProfileMenu from './ProfileMenu';
 
 const Search = styled('div')(({ theme }) => ({
@@ -57,14 +54,6 @@ export default function TopBar() {
   const dialogEl = useRef(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const openComingSoon = Boolean(anchorEl);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return <AppBar position="static">
     <Toolbar variant="dense">

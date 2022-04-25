@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 import TopBar from './TopBar';
 import DialogComingSoon from './DialogComingSoon';
 import CircularProgress from  '@mui/material/CircularProgress';
+import Footer from './Footer';
 
 export default function Home() {
   const [searchParam, setSearchParam] = useState("");
@@ -53,8 +54,7 @@ export default function Home() {
   }
 
   return <div style={{backgroundImage: `url(${background})`, height: '100vh', width: '100vw', backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
-    <TopBar>
-    </TopBar>
+    <TopBar></TopBar>
     <Box component="div" height="10%"></Box>
     <Grid container direction="column" justifyContent="flex-end" alignItems="center" rowGap={2}>
       <Grid item xs={12} md={4} >
@@ -89,6 +89,5 @@ export default function Home() {
       <Grid>{ showPb ? <CircularProgress /> : "" }</Grid>
     </Grid>
     <DialogComingSoon ref={dialogEl}></DialogComingSoon>
-
     </div>;
 }

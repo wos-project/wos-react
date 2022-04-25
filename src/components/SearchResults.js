@@ -22,6 +22,14 @@ import { IconButton } from '@mui/material';
 import copy from "copy-to-clipboard";  
 import ContentCutIcon from '@mui/icons-material/ContentCut';
 import { useNavigate } from "react-router-dom";
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import ExploreIcon from '@mui/icons-material/Explore';
+import FilterNoneIcon from '@mui/icons-material/FilterNone';
+import GoogleMapReact from 'google-map-react';
+import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
+import Tooltip from '@mui/material/Tooltip';
+import Footer from './Footer';
 
 function Copyright() {
   return (
@@ -45,10 +53,15 @@ export default function SearchResults() {
   const [error, setError] = useState(null);
   const [results, setResults] = useState([]);
   const [searchText, setSearchText] = useState(searchParam);
+  const [viewMode, setViewMode] = useState("tiles");
 
   useEffect(() => {
     getResults();
   }, [])
+
+  const handleViewMode = (event, newMode) => {
+    setViewMode(newMode);
+  };
 
   const logoTheme = createTheme({
     typography: {
@@ -121,7 +134,14 @@ export default function SearchResults() {
     navigate("/report");
   }
 
+  const AnyReactComponent = ({ text }) => <div>
+  <Tooltip title="arc1">
+    <PersonPinCircleIcon/>
+  </Tooltip>
+  </div>;
+
   return (
+    <div style={{ height: "100vh", display: "flex", "flex-direction": "column" }}>
     <ThemeProvider theme={theme}>
       <CssBaseline/>
       <TopBar>
@@ -171,12 +191,39 @@ export default function SearchResults() {
           </Box>
         </Toolbar>
       </AppBar>
+      <ToggleButtonGroup
+        value={viewMode}
+        exclusive
+        onChange={handleViewMode}
+        aria-label="view mode"
+      >
+        <ToggleButton value="tiles" aria-label="tiles">
+          <FilterNoneIcon />
+        </ToggleButton>
+        <ToggleButton value="explore" aria-label="explore">
+          <ExploreIcon />
+        </ToggleButton>
+      </ToggleButtonGroup>
+
+      { viewMode=="explore" ?
+
+      <div style={{ width: '100%', height: '100%', position: 'relative', top: '1px' }}>
+        <GoogleMapReact
+              bootstrapURLKeys={{ key: "AIzaSyDOXXyDtcn9LAJ97zIhOZxu_w7X1Z72OzE" }}
+              defaultCenter={{lat: 41.5, lng: -71.3}}
+              defaultZoom={12}
+            >
+
+            <AnyReactComponent lat={41.5} lng={-71.3}></AnyReactComponent>
+
+        </GoogleMapReact>
+      </div> :
+
       <main>
-        {/* Hero unit */}
         <Box
           sx={{
             bgcolor: 'background.paper',
-            pt: 6,
+            pt: 1,
             pb: 0,
           }}
         >
@@ -267,23 +314,10 @@ export default function SearchResults() {
             ))}
           </Grid>
         </Container>
-      </main>
-      {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Questori
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Pin, Track, Find World Objects
-        </Typography>
-        <Copyright />
-      </Box>
-      {/* End footer */}
+      </main> 
+      }
+      <Footer></Footer>
     </ThemeProvider>
+    </div>
   );
 }

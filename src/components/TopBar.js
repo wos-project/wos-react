@@ -53,7 +53,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function TopBar() {  
   const dialogEl = useRef(null);
   const [anchorEl, setAnchorEl] = useState(null);
-  const openComingSoon = Boolean(anchorEl);
 
   return <AppBar position="static">
     <Toolbar variant="dense">

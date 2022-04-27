@@ -1,8 +1,8 @@
 import React from 'react';
-import TopBar from './TopBar';
 import GoogleMapReact from 'google-map-react';
 import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
 import Tooltip from '@mui/material/Tooltip';
+import TopBar from '../components/TopBar';
 
 export default function Map() {
 

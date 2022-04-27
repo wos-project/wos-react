@@ -2,7 +2,6 @@ import * as React from 'react';
 import { IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from "react-router-dom";
-import DialogComingSoon from './DialogComingSoon';
 import { useState, useRef }  from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -12,6 +11,7 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Popover from '@mui/material/Popover';
+import DialogComingSoon from '../components/DialogComingSoon';
 
 export default function HamburgerMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -22,7 +22,6 @@ export default function HamburgerMenu() {
   const [openCreators, setOpenCreators] = React.useState(false);
   const [openMarketers, setOpenMarketers] = React.useState(false);
   const [openMyNfts, setOpenMyNfts] = React.useState(false);
-  const [menuState, setMenuState] = React.useState({})
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -137,16 +136,16 @@ export default function HamburgerMenu() {
               <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
                 <ListItemText primary="Bounties" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ handleNavHome }>
                 <ListItemText primary="Spatial Audio" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ handleNavHome }>
                 <ListItemText primary="Photos" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ handleNavHome }>
                 <ListItemText primary="Video" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ handleNavHome }>
                 <ListItemText primary="3D" sx={{color:'black'}}/>
               </ListItemButton>
             </List>
@@ -159,7 +158,7 @@ export default function HamburgerMenu() {
           </ListItem>
           <Collapse in={openCreators} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/creators/create") } }>
                 <ListItemText primary="Create NFT" sx={{color:'black'}}/>
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
@@ -203,7 +202,7 @@ export default function HamburgerMenu() {
           </ListItem>
           <Collapse in={openMyNfts} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/mynfts/collection")} }>
                 <ListItemText primary="Collection" sx={{color:'black'}}/>
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>

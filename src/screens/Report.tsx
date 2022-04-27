@@ -11,7 +11,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
-import TopBar from './TopBar';
+import TopBar from '../components/TopBar';
 
 
 ChartJS.register(

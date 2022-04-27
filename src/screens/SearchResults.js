@@ -15,9 +15,7 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { useParams } from "react-router-dom";
-import background_img from '../earth_background.jpg'
 import { useState, useEffect }  from 'react';
-import TopBar from './TopBar';
 import { IconButton } from '@mui/material';
 import copy from "copy-to-clipboard";  
 import ContentCutIcon from '@mui/icons-material/ContentCut';
@@ -29,7 +27,10 @@ import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import GoogleMapReact from 'google-map-react';
 import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
 import Tooltip from '@mui/material/Tooltip';
-import Footer from './Footer';
+import Footer from '../components/Footer';
+import TopBar from '../components/TopBar';
+import background_img from '../assets/earth_background.jpg'
+
 
 function Copyright() {
   return (
@@ -303,7 +304,7 @@ export default function SearchResults() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" onClick={() => alert("Click to show on map")}>Explore</Button>
+                    <Button size="small" onClick={() => navigate("/map")}>Explore</Button>
                     <Button size="small" onClick={() => alert("Click to buy or sell")}>Buy/Sell</Button>
                     <Button size="small" onClick={() => alert("Click to add a tracker")}>Track</Button>
                     <Button size="small" onClick={handleReports}>Stats</Button>

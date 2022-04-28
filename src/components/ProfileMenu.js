@@ -136,6 +136,7 @@ export default function ProfileMenu() {
         }}
       >
         <MenuItem onClick={onConnect}>Connect Metamask Wallet</MenuItem>
+        <MenuItem onClick={handleComingSoon}>Light Mode</MenuItem>
         <MenuItem onClick={handleComingSoon}>Profile</MenuItem>
       </Menu>
 

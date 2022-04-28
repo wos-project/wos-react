@@ -50,6 +50,12 @@ export default function HamburgerMenu() {
     navigate("/");
   }
 
+  const handleNavSearch = (p) => {
+    setAnchorEl(null);
+    collapse();
+    navigate("/search/" + p);
+  }
+
   const handleClickExplore = () => {
     setOpenExplore(!openExplore);
     setOpenCreators(false);
@@ -133,19 +139,19 @@ export default function HamburgerMenu() {
               <ListItemButton sx={{ pl: 4 }} onClick={ handleNavHome }>
                 <ListItemText primary="World Object Store" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => navigate("/bounties") }>
                 <ListItemText primary="Bounties" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleNavHome }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => handleNavSearch("spatialaudio") }>
                 <ListItemText primary="Spatial Audio" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleNavHome }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => handleNavSearch("photos") }>
                 <ListItemText primary="Photos" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleNavHome }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => handleNavSearch("video") }>
                 <ListItemText primary="Video" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleNavHome }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => handleNavSearch("3d") }>
                 <ListItemText primary="3D" sx={{color:'black'}}/>
               </ListItemButton>
             </List>
@@ -161,8 +167,8 @@ export default function HamburgerMenu() {
               <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/creators/create") } }>
                 <ListItemText primary="Create NFT" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
-                <ListItemText primary="Trackers" sx={{color:'black'}}/>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/creators/import") } }>
+                <ListItemText primary="Import NFT" sx={{color:'black'}}/>
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }} onClick={ handleReports }>
                 <ListItemText primary="Reports" sx={{color:'black'}}/>
@@ -178,6 +184,9 @@ export default function HamburgerMenu() {
           <Collapse in={openMarketers} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
+                <ListItemText primary="Sites" sx={{color:'black'}}/>
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/marketers/bounties") } }>
                 <ListItemText primary="Bounties" sx={{color:'black'}}/>
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
@@ -205,7 +214,10 @@ export default function HamburgerMenu() {
               <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/mynfts/collection")} }>
                 <ListItemText primary="Collection" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/mynfts/trackers") } }>
+                <ListItemText primary="Trackers" sx={{color:'black'}}/>
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/mynfts/history") }  }>
                 <ListItemText primary="History" sx={{color:'black'}}/>
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }} onClick={ handleReports }>

@@ -157,6 +157,28 @@ export default function HamburgerMenu() {
             </List>
           </Collapse>
           <ListItem disablePadding>
+            <ListItemButton onClick={handleClickMyNfts}>
+              <ListItemText primary="My NFTs" sx={{color:'black'}}></ListItemText>
+              {openMyNfts ? <ExpandLess color="primary"/> : <ExpandMore color="primary"/>}
+            </ListItemButton>
+          </ListItem>
+          <Collapse in={openMyNfts} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/mynfts/collection")} }>
+                <ListItemText primary="Collection" sx={{color:'black'}}/>
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/mynfts/trackers") } }>
+                <ListItemText primary="Trackers" sx={{color:'black'}}/>
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/mynfts/history") }  }>
+                <ListItemText primary="History" sx={{color:'black'}}/>
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }} onClick={ handleReports }>
+                <ListItemText primary="Stats" sx={{color:'black'}}/>
+              </ListItemButton>
+            </List>
+          </Collapse>
+          <ListItem disablePadding>
             <ListItemButton onClick={handleClickCreators}>
               <ListItemText primary="Creators" sx={{color:'black'}}></ListItemText>
               {openCreators ? <ExpandLess color="primary"/> : <ExpandMore color="primary"/>}
@@ -183,7 +205,7 @@ export default function HamburgerMenu() {
           </ListItem>
           <Collapse in={openMarketers} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/marketers/sites") } }>
                 <ListItemText primary="Sites" sx={{color:'black'}}/>
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/marketers/bounties") } }>
@@ -200,28 +222,6 @@ export default function HamburgerMenu() {
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
                 <ListItemText primary="Analytics" sx={{color:'black'}}/>
-              </ListItemButton>
-            </List>
-          </Collapse>
-          <ListItem disablePadding>
-            <ListItemButton onClick={handleClickMyNfts}>
-              <ListItemText primary="My NFTs" sx={{color:'black'}}></ListItemText>
-              {openMyNfts ? <ExpandLess color="primary"/> : <ExpandMore color="primary"/>}
-            </ListItemButton>
-          </ListItem>
-          <Collapse in={openMyNfts} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/mynfts/collection")} }>
-                <ListItemText primary="Collection" sx={{color:'black'}}/>
-              </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/mynfts/trackers") } }>
-                <ListItemText primary="Trackers" sx={{color:'black'}}/>
-              </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/mynfts/history") }  }>
-                <ListItemText primary="History" sx={{color:'black'}}/>
-              </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleReports }>
-                <ListItemText primary="Stats" sx={{color:'black'}}/>
               </ListItemButton>
             </List>
           </Collapse>

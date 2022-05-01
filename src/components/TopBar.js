@@ -69,7 +69,7 @@ export default function TopBar() {
         </Search>
       }
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-        Beta
+        SP8L beta
       </Typography>
       <ProfileMenu></ProfileMenu>
     </Toolbar>

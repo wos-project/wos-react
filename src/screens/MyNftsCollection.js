@@ -56,7 +56,7 @@ const columns = [
         color="primary"
         size="small"
         style={{ marginLeft: 6 }}
-        href="/"
+        href="/tracker"
       >
         yes
       </Link>
@@ -77,7 +77,7 @@ const columns = [
         color="primary"
         size="small"
         style={{ marginLeft: 6 }}
-        href="/"
+        href="/nftcreate?a=edit"
       >
         review
       </Link>

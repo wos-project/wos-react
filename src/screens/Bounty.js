@@ -15,7 +15,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-export default function MarketersBounty() {
+export default function Bounty() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [nft, setNft] = useState("Jon");
   const [trigger, setTrigger] = useState("play");

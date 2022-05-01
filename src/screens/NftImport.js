@@ -12,14 +12,14 @@ import * as Yup from 'yup';
 import FileUpload from 'react-material-file-upload';
 import { useReactMediaRecorder } from "react-media-recorder";
 
-export default function CreatorsCreate() {
+export default function NftImport() {
   const videoEl = useRef(null);
   const [files, setFiles] = useState([]);
   const { register, handleSubmit } = useForm();
   const [data, setData] = useState("");
   let navigate = useNavigate();
-  const { status, startRecording, stopRecording, mediaBlobUrl } =
-  useReactMediaRecorder({ video: true });
+  const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ video: true });
+  const [contractAddr, setContractAddr] = useState("");
 
   return <div>
     <TopBar/>
@@ -29,26 +29,21 @@ export default function CreatorsCreate() {
       <Grid item xs={11.8} md={7} >
         <Grid container direction="column" justifyContent="flex-start" alignItems="left" rowGap={2}>
           <Grid item mt={2}>
-            <Typography gutterBottom variant="h5" component="h2">Create NFT</Typography>
+            <Typography gutterBottom variant="h5" component="h2">Import NFT</Typography>
           </Grid>
 
-          <Grid item xs={12} md={6}>
-            <FileUpload value={files} onChange={setFiles} />
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Grid container spacing={2}>
-              <Grid item>
-                <Button variant="outlined" onClick={() => {videoEl.current.hidden=false; startRecording();}}>Snap Photo</Button>
+          <Grid item xs={5} md={5}>
+            <Grid container direction="row" justifyContent="flex-start" alignItems="left" rowGap={2}>
+              <Grid item xs={10} md={10}>
+                <TextField
+                  variant="outlined"
+                  label="Contract Address"
+                  onChange={e => setContractAddr(e.target.value)}
+                  fullWidth
+                ></TextField>
               </Grid>
-              <Grid item>
-                <Button variant="outlined" onClick={() => {videoEl.current.hidden=false; startRecording();}}>Record Audio</Button>
-              </Grid>
-              <Grid item>
-                <Button variant="outlined" onClick={() => {videoEl.current.hidden=false; startRecording();}}>Record Video</Button>
-              </Grid>
-              <Grid item>
-                <video src={mediaBlobUrl} controls autoPlay loop hidden={true} ref={videoEl}/>
+              <Grid item xs={2} md={2} justifyContent="center" padding={1}>
+                <Button variant="outlined" disabled={!contractAddr}>Import</Button>
               </Grid>
             </Grid>
           </Grid>
@@ -89,7 +84,7 @@ export default function CreatorsCreate() {
             <Checkbox variant="outlined"></Checkbox>Pin to Location
           </Grid>
           <Grid item>
-            <Button variant="outlined" onClick={() => {navigate("/")}}>Save</Button>
+            <Button variant="outlined" onClick={() => {navigate("/tracker")}}>Save</Button>
           </Grid>
         </Grid>
       </Grid>

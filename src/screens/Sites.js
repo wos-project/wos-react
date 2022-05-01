@@ -5,12 +5,9 @@ import Tooltip from '@mui/material/Tooltip';
 import { faker } from '@faker-js/faker';
 import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
 import { Link, Typography, Box, Grid, InputLabel } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
 import { useState, useRef }  from 'react';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import FormControl from '@mui/material/FormControl';
-import { IconButton } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 import TopBar from '../components/TopBar';
 
 const columns = [
@@ -47,7 +44,7 @@ const columns = [
         color="primary"
         size="small"
         style={{ marginLeft: 6 }}
-        href={"/marketers/site?a=edit&i=" + params.id}
+        href={"/site?a=edit&i=" + params.id}
       >
         edit
       </Link>
@@ -62,7 +59,7 @@ const columns = [
         color="primary"
         size="small"
         style={{ marginLeft: 6 }}
-        href="/"
+        onClick={(e) => alert("sure you want to delete?")}
       >
         delete
       </Link>
@@ -76,8 +73,9 @@ const rows = [
   { id: 4, contract: '0xAdd3D3e5b291E6Fe950503c666b0CCe32Abf8804', name: 'alchemy.co', status: 'enabled', date: 'Jan 6, 2022', hits: '12358' },
 ];
 
-export default function MarketersSites() {
+export default function Sites() {
   const [world, setWorld] = useState("Earth")
+  let navigate = useNavigate();
 
   const AnyReactComponent = ({ text }) => <div>
     <Tooltip title="arc1">
@@ -97,7 +95,7 @@ export default function MarketersSites() {
               <Grid item rowGap={2} alignItems="center" padding={1}>
                 <Typography gutterBottom variant="h5" component="h2">Sites</Typography>
               </Grid>
-              <Grid item alignItems="center" padding={1}>
+              <Grid item alignItems="center" padding={1} onClick={() => { navigate("/site?a=add") }}>
                 <AddCircleIcon></AddCircleIcon>
               </Grid>
             </Grid>

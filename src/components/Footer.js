@@ -18,7 +18,7 @@ function Copyright() {
 export default function Footer() {
 
   return (
-    <Box sx={{ bgcolor: 'background.paper', p: 1 }} component="footer">
+    <Box sx={{ bgcolor: 'background.paper', p: 1, m: 10 }} component="footer">
       <Typography variant="h6" align="center" gutterBottom>
         SP8L
       </Typography>

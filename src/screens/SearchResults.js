@@ -27,6 +27,7 @@ import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import GoogleMapReact from 'google-map-react';
 import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
 import Tooltip from '@mui/material/Tooltip';
+import Switch from '@mui/material/Switch';
 import Footer from '../components/Footer';
 import TopBar from '../components/TopBar';
 import background_img from '../assets/earth_background.jpg'
@@ -306,7 +307,7 @@ export default function SearchResults() {
                   <CardActions>
                     <Button size="small" onClick={() => navigate("/map")}>Explore</Button>
                     <Button size="small" onClick={() => alert("Click to buy or sell")}>Buy/Sell</Button>
-                    <Button size="small" onClick={() => alert("Click to add a tracker")}>Track</Button>
+                    <Button size="small" onClick={() => navigate("/tracker")}>Tracker</Button>
                     <Button size="small" onClick={handleReports}>Stats</Button>
                     <Button size="small" onClick={() => alert("Click to show in-app if available")}>In-App</Button>
                   </CardActions>

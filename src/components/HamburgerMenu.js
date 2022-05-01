@@ -167,7 +167,7 @@ export default function HamburgerMenu() {
               <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/mynfts/collection")} }>
                 <ListItemText primary="Collection" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/mynfts/trackers") } }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/trackers") } }>
                 <ListItemText primary="Trackers" sx={{color:'black'}}/>
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/mynfts/history") }  }>
@@ -186,14 +186,11 @@ export default function HamburgerMenu() {
           </ListItem>
           <Collapse in={openCreators} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/creators/create") } }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/nftcreate") } }>
                 <ListItemText primary="Create NFT" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/creators/import") } }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/nftimport") } }>
                 <ListItemText primary="Import NFT" sx={{color:'black'}}/>
-              </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ handleReports }>
-                <ListItemText primary="Reports" sx={{color:'black'}}/>
               </ListItemButton>
             </List>
           </Collapse>
@@ -205,10 +202,10 @@ export default function HamburgerMenu() {
           </ListItem>
           <Collapse in={openMarketers} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/marketers/sites") } }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/sites") } }>
                 <ListItemText primary="Sites" sx={{color:'black'}}/>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/marketers/bounties") } }>
+              <ListItemButton sx={{ pl: 4 }} onClick={ () => { navigate("/bounties") } }>
                 <ListItemText primary="Bounties" sx={{color:'black'}}/>
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }} onClick={ handleComingSoon }>
@@ -236,7 +233,7 @@ export default function HamburgerMenu() {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton onClick={handleComingSoon}>
+            <ListItemButton onClick={ () => { navigate("/aboutus") }}>
               <ListItemText primary="About" sx={{color:'black'}}></ListItemText>
             </ListItemButton>
           </ListItem>

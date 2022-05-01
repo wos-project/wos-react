@@ -80,7 +80,7 @@ export default function MyNftsHistory() {
       <Grid item xs={11} md={11} >
         <Grid container direction="column" justifyContent="flex-start" alignItems="left" rowGap={2}>
           <Grid container direction="row" justifyContent="flex-start" alignItems="left" rowGap={2} mt={2}>
-            <Typography gutterBottom variant="h5" component="h2">My Trackers</Typography>
+            <Typography gutterBottom variant="h5" component="h2">History</Typography>
           </Grid>
           <Grid item xs={12} md={12} >
             <div style={{ height: 400, width: '100%' }}>

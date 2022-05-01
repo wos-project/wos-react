@@ -4,15 +4,16 @@ import SearchResults from './screens/SearchResults.js'
 import Home from './screens/Home.js'
 import Report from './screens/Report.tsx'
 import Map from './screens/Map.js'
+import Tracker from './screens/Tracker.js'
+import Trackers from './screens/Trackers.js'
+import NftCreate from './screens/NftCreate.js'
+import NftImport from './screens/NftImport.js'
+import Sites from './screens/Sites.js'
+import Site from './screens/Site.js'
 import Bounties from './screens/Bounties.js'
-import CreatorsCreate from './screens/CreatorsCreate.js'
-import CreatorsImport from './screens/CreatorsImport.js'
-import MarketersBounties from './screens/MarketersBounties.js'
-import MarketersBounty from './screens/MarketersBounty.js'
-import MarketersSites from './screens/MarketersSites.js'
-import MarketersSite from './screens/MarketersSite.js'
+import Bounty from './screens/Bounty.js'
+import AboutUs from './screens/AboutUs.js'
 import MyNftsCollection from './screens/MyNftsCollection.js'
-import MyNftsTrackers from './screens/MyNftsTrackers.js'
 import MyNftsHistory from './screens/MyNftsHistory.js'
 
 export default function App() {
@@ -24,16 +25,18 @@ export default function App() {
         <Route path="/search/:searchParam" element={<SearchResults />} />
         <Route path="/contract/:searchParam" element={<SearchResults />}  />
         <Route path="/bounties" element={<Bounties />}  />
-        <Route path="/creators/create" element={<CreatorsCreate />}  />
-        <Route path="/creators/import" element={<CreatorsImport />}  />
+        <Route path="/tracker" element={<Tracker />}  />
+        <Route path="/trackers" element={<Trackers />}  />
         <Route path="/report" element={<Report />}  />
         <Route path="/map" element={<Map />}  />
-        <Route path="/marketers/bounties" element={<MarketersBounties />}  />
-        <Route path="/marketers/bounty" element={<MarketersBounty />}  />
-        <Route path="/marketers/sites" element={<MarketersSites />}  />
-        <Route path="/marketers/site" element={<MarketersSite />}  />
+        <Route path="/sites" element={<Sites />}  />
+        <Route path="/site" element={<Site />}  />
+        <Route path="/nftcreate" element={<NftCreate />}  />
+        <Route path="/nftimport" element={<NftImport />}  />
+        <Route path="/bounties" element={<Bounties />}  />
+        <Route path="/bounty" element={<Bounty />}  />
+        <Route path="/aboutus" element={<AboutUs />}  />
         <Route path="/mynfts/collection" element={<MyNftsCollection />}  />
-        <Route path="/mynfts/trackers" element={<MyNftsTrackers />}  />
         <Route path="/mynfts/history" element={<MyNftsHistory />}  />
       </Routes>
     </>);

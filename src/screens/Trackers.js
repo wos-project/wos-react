@@ -65,7 +65,7 @@ const columns = [
         color="primary"
         size="small"
         style={{ marginLeft: 6 }}
-        href="/"
+        href="/tracker"
       >
         review
       </Link>
@@ -94,7 +94,7 @@ const rows = [
   { id: 4, contract: '0xAdd3D3e5b291E6Fe950503c666b0CCe32Abf8804', name: 'Arya', status: 'very popular', date: 'Jan 6, 2022', hitCount: 19484, loc: '41.3 : -71.5', world: 'earth' },
 ];
 
-export default function MyNftsTrackers() {
+export default function Trackers() {
   return <div>
     <TopBar/>
     <Grid container direction="row" justifyContent="flex-start" alignItems="left" rowGap={2}>
@@ -103,7 +103,7 @@ export default function MyNftsTrackers() {
       <Grid item xs={11} md={11} >
         <Grid container direction="column" justifyContent="flex-start" alignItems="left" rowGap={2}>
           <Grid container direction="row" justifyContent="flex-start" alignItems="left" rowGap={2} mt={2}>
-            <Typography gutterBottom variant="h5" component="h2">My Trackers</Typography>
+            <Typography gutterBottom variant="h5" component="h2">Trackers</Typography>
           </Grid>
           <Grid item xs={12} md={12} >
             <div style={{ height: 400, width: '100%' }}>

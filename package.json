@@ -18,12 +18,13 @@
     "chart.js": "^3.7.1",
     "copy-to-clipboard": "^3.3.1",
     "faker": "^6.6.6",
-    "google-map-react": "^2.1.10",
+    "leaflet": "^1.8.0",
     "react": "^18.1.0",
     "react-ar-components": "^4.4.0",
     "react-chartjs-2": "^4.1.0",
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.30.0",
+    "react-leaflet": "^4.0.0",
     "react-material-file-upload": "^0.0.4",
     "react-media-recorder": "^1.6.4",
     "react-qr-code": "^2.0.7",
@@ -56,9 +57,9 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
     ]
   },
   "devDependencies": {

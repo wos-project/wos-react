@@ -75,6 +75,12 @@ export const dataLine = {
       borderColor: 'rgb(53, 162, 235)',
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },
+    {
+      label: 'At Location',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      borderColor: 'rgb(53, 162, 235)',
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
   ],
 };
 
@@ -132,17 +138,21 @@ export default function Report() {
   return <div>
     <TopBar/>
     <Grid container direction="column" rowGap={3}>
-      <Grid item>
-        <Line options={options} data={dataLine} />
+      <Grid container direction="row" columnGap={3}>
+        <Grid item xs={5} md={5}>
+          <Line options={options} data={dataLine} />
+        </Grid>
+        <Grid item xs={5} md={5}>
+          <Bubble options={optionsBubble} data={dataBubble} />     
+        </Grid> 
       </Grid>
-      <Grid item>
-        <Bubble options={optionsBubble} data={dataBubble} />     
-      </Grid>   
-      <Grid item>
-        <Bar options={options} data={dataLine} />        
-      </Grid>
-      <Grid item xs={5} md={5}>
-        <Pie data={dataPie} />
+      <Grid container direction="row" columnGap={3}>
+        <Grid item xs={5} md={5}>
+          <Bar options={options} data={dataLine} />        
+        </Grid>
+        <Grid item xs={3} md={3} alignContent="center">
+          <Pie data={dataPie} />
+        </Grid>
       </Grid>
     </Grid>
   </div>;

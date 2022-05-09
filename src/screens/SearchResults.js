@@ -169,9 +169,11 @@ export default function SearchResults() {
   const updateByLocation = () => {
     setShowPb(true);
     navigator.geolocation.getCurrentPosition(function(position) {
-      let lat = position.coords.latitude;
-      let lon = position.coords.longitude;
-      navigate(`/search/location:${lat},${lon}`);
+      setShowPb(false);
+      let x = position.coords.latitude;
+      let y = position.coords.longitude;
+      setSearchText(`location : ${x}, ${y}`);
+      getResults(null, null, x, y)
     });
   }  
 

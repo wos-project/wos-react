@@ -1,17 +1,5 @@
 import React from 'react';
-import { faker } from '@faker-js/faker';
-import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
-import { Link, Typography, Box, Grid, TextField, Button, Checkbox, InputLabel } from '@mui/material';
-import { useForm } from "react-hook-form";
-import { useState, useRef }  from 'react';
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import { Link, Typography, Box, Grid, TextField, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { IconButton } from '@mui/material';
@@ -22,11 +10,6 @@ import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
 export default function Tracker() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [nft, setNft] = useState("Jon");
-  const [trigger, setTrigger] = useState("play");
-  const [action, setAction] = useState("pay user");
-  let navigate = useNavigate();
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',

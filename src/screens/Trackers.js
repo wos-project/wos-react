@@ -1,8 +1,7 @@
 import React from 'react';
-import { faker } from '@faker-js/faker';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
-import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import { Link, Typography, Box, Grid } from '@mui/material';
 
 const columns = [

@@ -12,7 +12,9 @@ export default function ProfileMenu() {
   const open = Boolean(anchorEl);
   const dialogEl = useRef(null);
 
+  // eslint-disable-next-line
   const [isConnected, setIsConnected] = useState(false);
+  // eslint-disable-next-line
   const [userInfo, setUserInfo] = useState({});
 
   const handleClick = (event) => {
@@ -44,6 +46,7 @@ export default function ProfileMenu() {
     return provider;
   };
 
+  // eslint-disable-next-line
   const handleSignMessage = ({ publicAddress, nonce }) => {
     return new Promise((resolve, reject) =>
       Web3.personal.sign(
@@ -85,6 +88,7 @@ export default function ProfileMenu() {
     }
   };
 
+  // eslint-disable-next-line
   const onDisconnect = () => {
     window.localStorage.removeItem('userAccount');
     setUserInfo({});

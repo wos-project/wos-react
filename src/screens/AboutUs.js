@@ -1,24 +1,8 @@
 import React from 'react';
-import { faker } from '@faker-js/faker';
-import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
-import { Link, Typography, Box, Grid, TextField, Button, Checkbox, InputLabel } from '@mui/material';
-import { useForm } from "react-hook-form";
-import { useState, useRef }  from 'react';
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import { Typography, Grid } from '@mui/material';
 import TopBar from '../components/TopBar';
-import Footer from '../components/Footer';
 
 export default function AboutUs() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [nft, setNft] = useState("Jon");
-
   return <div>
     <TopBar/>
     <Grid container direction="row" alignItems="center" rowGap={2}>

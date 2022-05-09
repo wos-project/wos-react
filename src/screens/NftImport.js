@@ -1,24 +1,12 @@
 import React from 'react';
-import { faker } from '@faker-js/faker';
-import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
-import { Link, Typography, Box, Grid, TextField, Button, Checkbox } from '@mui/material';
-import { useForm } from "react-hook-form";
-import { useState, useRef }  from 'react';
+import { Typography, Grid, TextField, Button, Checkbox } from '@mui/material';
+import { useState }  from 'react';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 import { useNavigate } from "react-router-dom";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import FileUpload from 'react-material-file-upload';
-import { useReactMediaRecorder } from "react-media-recorder";
 
 export default function NftImport() {
-  const videoEl = useRef(null);
-  const [files, setFiles] = useState([]);
-  const { register, handleSubmit } = useForm();
-  const [data, setData] = useState("");
   let navigate = useNavigate();
-  const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ video: true });
   const [contractAddr, setContractAddr] = useState("");
 
   return <div>

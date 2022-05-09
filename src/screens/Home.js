@@ -16,14 +16,7 @@ export default function Home() {
   const [searchParam, setSearchParam] = useState("");
   const dialogEl = useRef(null);
   const [showPb, setShowPb] = useState(false);
-
   let navigate = useNavigate(); 
-  const routeChange = () =>{ 
-    if (searchParam) {
-      let path = '/search/' + searchParam; 
-      navigate(path);
-    }
-  }
 
   const logoTheme = createTheme({
     typography: {
@@ -32,13 +25,16 @@ export default function Home() {
       ].join(','),
     },});  
 
-  const getLatLong = () => {
+  const routeSearchParams = () =>{ 
+    navigate("/search/" + searchParam);
+  }
+  
+  const routeSearchLocation = () => {
     setShowPb(true);
     navigator.geolocation.getCurrentPosition(function(position) {
       let lat = position.coords.latitude;
       let lon = position.coords.longitude;
-      let path = `/search/lat=${lat}&lon=${lon}`; 
-      navigate(path);
+      navigate(`/search/location:${lat},${lon}`);
     });
   }
 
@@ -69,10 +65,10 @@ export default function Home() {
             }}/>        
           </Grid>
         <Grid item xs={5} md={2}>
-          <Button variant="contained" fullWidth onClick={routeChange}>Search</Button>
+          <Button variant="contained" fullWidth onClick={routeSearchParams}>Search</Button>
         </Grid>
         <Grid item xs={5} md={2}>
-          <Button variant="contained" fullWidth onClick={getLatLong}>By Location</Button>
+          <Button variant="contained" fullWidth onClick={routeSearchLocation}>By Location</Button>
         </Grid>
       </Grid>
       <Grid>{ showPb ? <CircularProgress /> : "" }</Grid>

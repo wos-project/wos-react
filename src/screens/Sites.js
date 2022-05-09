@@ -1,11 +1,6 @@
 import React from 'react';
-import GoogleMapReact from 'google-map-react';
-import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
-import Tooltip from '@mui/material/Tooltip';
-import { faker } from '@faker-js/faker';
-import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
-import { Link, Typography, Box, Grid, InputLabel } from '@mui/material';
-import { useState, useRef }  from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import { Link, Typography, Grid } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useNavigate } from "react-router-dom";
 import TopBar from '../components/TopBar';
@@ -74,14 +69,7 @@ const rows = [
 ];
 
 export default function Sites() {
-  const [world, setWorld] = useState("Earth")
   let navigate = useNavigate();
-
-  const AnyReactComponent = ({ text }) => <div>
-    <Tooltip title="arc1">
-      <PersonPinCircleIcon/>
-    </Tooltip>
-    </div>;
   
   return <div>
     <TopBar/>

@@ -7,6 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import { forwardRef, useImperativeHandle }  from 'react';
 
+// eslint-disable-next-line
 export default DialogComingSoon = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     open() {

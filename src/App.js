@@ -13,6 +13,7 @@ import Site from './screens/Site.js'
 import Bounties from './screens/Bounties.js'
 import Bounty from './screens/Bounty.js'
 import AboutUs from './screens/AboutUs.js'
+import ThreeD from './screens/3d.js'
 import MyNftsCollection from './screens/MyNftsCollection.js'
 import MyNftsHistory from './screens/MyNftsHistory.js'
 
@@ -22,8 +23,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<SearchResults />} />
-        <Route path="/search/:searchParam" element={<SearchResults />} />
-        <Route path="/contract/:searchParam" element={<SearchResults />}  />
+        <Route path="/search/:searchText" element={<SearchResults />} />
+        <Route path="/contract/:contractAddr" element={<SearchResults />}  />
         <Route path="/bounties" element={<Bounties />}  />
         <Route path="/tracker" element={<Tracker />}  />
         <Route path="/trackers" element={<Trackers />}  />
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="/aboutus" element={<AboutUs />}  />
         <Route path="/mynfts/collection" element={<MyNftsCollection />}  />
         <Route path="/mynfts/history" element={<MyNftsHistory />}  />
+        <Route path="/3d" element={<ThreeD />}  />
       </Routes>
     </>);
 }

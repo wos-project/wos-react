@@ -1,13 +1,8 @@
 import React from 'react';
-import { faker } from '@faker-js/faker';
-import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
-import { Link, Typography, Box, Grid, TextField, Button, Checkbox, InputLabel } from '@mui/material';
-import { useForm } from "react-hook-form";
-import { useState, useRef }  from 'react';
+import { Typography, Grid, TextField, Button, InputLabel } from '@mui/material';
+import { useState }  from 'react';
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -16,7 +11,7 @@ import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
 export default function Bounty() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [nft, setNft] = useState("Jon");
   const [trigger, setTrigger] = useState("play");
   const [action, setAction] = useState("pay user");
@@ -30,7 +25,7 @@ export default function Bounty() {
       <Grid item xs={11.8} md={7} >
         <Grid container direction="column" justifyContent="flex-start" alignItems="left" rowGap={2}>
           <Grid item mt={2}>
-            <Typography gutterBottom variant="h5" component="h2">{searchParams.get("a") == "add" ? "Add " : "Edit "}Bounty</Typography>
+            <Typography gutterBottom variant="h5" component="h2">{searchParams.get("a") === "add" ? "Add " : "Edit "}Bounty</Typography>
           </Grid>
 
           <Grid item md={6} width='70%'>

@@ -11,7 +11,6 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { useParams } from "react-router-dom";
@@ -19,7 +18,7 @@ import { useState, useEffect }  from 'react';
 import { IconButton } from '@mui/material';
 import copy from "copy-to-clipboard";  
 import ContentCutIcon from '@mui/icons-material/ContentCut';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ExploreIcon from '@mui/icons-material/Explore';
@@ -27,38 +26,27 @@ import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import GoogleMapReact from 'google-map-react';
 import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
 import Tooltip from '@mui/material/Tooltip';
-import Switch from '@mui/material/Switch';
 import Footer from '../components/Footer';
 import TopBar from '../components/TopBar';
+import CircularProgress from  '@mui/material/CircularProgress';
 import background_img from '../assets/earth_background.jpg'
-
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Questori LLC
-      </Link>{' '}
-      {new Date().getFullYear()}
-    </Typography>
-  );
-}
-
-// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const theme = createTheme();
 
 export default function SearchResults() {
 
-  const { searchParam } = useParams();
-  const [error, setError] = useState(null);
+  const navParams = useParams();
+  const location = useLocation();
   const [results, setResults] = useState([]);
-  const [searchText, setSearchText] = useState(searchParam);
   const [viewMode, setViewMode] = useState("tiles");
-
+  const [searchText, setSearchText] = useState("");
+  const [showPb, setShowPb] = useState(false);
+  let navigate = useNavigate();
+ 
   useEffect(() => {
-    getResults();
+    initResults();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleViewMode = (event, newMode) => {
@@ -73,44 +61,140 @@ export default function SearchResults() {
     },});  
 
   const handleError = () => {
+    setDefaultResults();
+  }
+
+  const setDefaultResults = () => {
     setResults([
       {
-        "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6g",
-        "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
-        "walletKind":"ropsten.ethereum",
-        "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
-        "name":"Chinese Tea Room at the Marble House pin",
-        "description":"",
-        "coverImageUri":"",
-        "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
-        "location": {"lat": "41.4901", "lon": "-71.3128"}
-      },{
-        "uid":"EXvou1_dRF-ZOs7jeGRCwAfCFu1X7oRGC5rlG9IkVZwACdFvAOf9Sdi7QeeN8nut6gmm",
-        "walletAddr":"0xff4d7946CabE6662EEBc12d74db83194ca72d18d",
-        "walletKind":"ropsten.ethereum",
-        "ipfsCid":"QmVsYMVuK4oWyvzsFK4Wna6RHM8EbLS2NNmFU3Baf7NoWr",
-        "name":"Chinese Tea Room at the Marble House pin",
-        "description":"test123",
-        "coverImageUri":"",
-        "contractAddr":"0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804",
-        "location": {"lat": "41.4901", "lon": "-71.3128"}
-      }   
+          "name": "Spring Sounds",
+          "description": "",
+          "createdAt": "2022-04-21T11:48:32.659309Z",
+          "Owner": {
+              "id": "",
+              "provider": ""
+          },
+          "coverImageUri": "https://worldos.s3.amazonaws.com/QmVSUTk9REwrLNWpxJT1oCqhaQysxY4rHpWpPqHPNTkyCn/media/cover.jpg",
+          "PinLocation": {
+              "lat": 41.495762,
+              "lon": -71.304584
+          },
+          "ipfsCid": "QmeTeZFyJxdUsN8CVmrPENm9dSvD6ebHc3dfmR7x5uPrz1",
+          "contractAddr": "0x749c51c256b7BC75F17183d2121f91d15197B87A",
+          "walletAddr": "0xff4d7946CabE6662EEBc12d74db83194ca72d18d"
+      },
+      {
+          "name": "Galactic Theatre",
+          "description": "",
+          "createdAt": "2022-04-29T00:21:12.888078Z",
+          "Owner": {
+              "id": "",
+              "provider": ""
+          },
+          "coverImageUri": "https://worldos.s3.amazonaws.com/QmYJYdNy3kCY874KzhonAwueQzdZtL3QWayWKecmfhocGc/media/cover.jpg",
+          "PinLocation": {
+              "lat": 41.730236,
+              "lon": -71.282497
+          },
+          "ipfsCid": "QmcpVjmk4RkbciaYJKY1w17LnwShtc8orUEiuD3rdArhWH",
+          "contractAddr": "",
+          "walletAddr": ""
+      }
     ])
   }
 
-  const getResults = () => {
+  const parseGeom = (s) => {
+    if (s.includes("location")) {
+      let tokens = s.split(":");
+      if (tokens.length === 2) {
+        let tokens2 = tokens[1].split(",");
+        if  (tokens2.length === 2) {
+          return [parseFloat(tokens2[0].trim()), parseFloat(tokens2[1].trim()), null];
+        }
+      }
+    }
+    return [0, 0, true];
+  }
 
-    //setSearchText("0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804");
+  // look for /contract/:contractAddr from app or /search from the front page
+  const initResults = () => {
 
-    let url = "https://worldos.earth/v1/"
-    if (searchText.slice(0,2) === "0x") {
-      url += "contract/" + searchText;
+    //conractAddr 0xBdd3D3e5b291E6Fe950503c666b0CCe32Abf8804
+    //41.4901, -71.3128
+    //Spring Sounds
+
+    if (location.pathname.startsWith("/contract")) {
+
+      let { contractAddr } = navParams;
+      setSearchText("contract : " + contractAddr);
+      getResults(contractAddr, null, null, null);
+      return;
+
+    } else if (location.pathname.startsWith("/search/location")) {
+      
+      let { searchText } = navParams;
+      let [x, y, err] = parseGeom(searchText);
+      if (!err) {
+        setSearchText(`location : ${x}, ${y}`);
+        getResults(null, null, x, y)
+        return;
+      }
+    }
+      
+    let { searchText } = navParams;
+    setSearchText(searchText);
+    getResults(null, searchText, null, null)  
+  }
+
+  const updateByText = () => {
+    let [x, y, err] = parseGeom(searchText);
+    if (!err) {
+      getResults(null, null, x, y);
+      return;
+    } else if (searchText.startsWith("0x")) {
+      getResults(searchText, null, null, null);
+      return;
+    }
+    getResults(null, searchText, null, null);
+  }
+
+  const updateByLocation = () => {
+    setShowPb(true);
+    navigator.geolocation.getCurrentPosition(function(position) {
+      let lat = position.coords.latitude;
+      let lon = position.coords.longitude;
+      navigate(`/search/location:${lat},${lon}`);
+    });
+  }  
+
+  const getResults = (contractAddr, text, lat, lon) => {
+
+    let url = "https://worldos.cloud/v1/object/search";
+    let body = {}
+
+    if (contractAddr) {
+
+      body = {"matchExpressions": [ {"key": "contract", "operator": "equal", "values": [contractAddr] } ] }
+
+    } else if (text) {
+
+      body = {"matchExpressions": [ {"key": "name", "operator": "equal", "values": [text] } ] }
+
+    } else if (lat && lon) {
+
+      body = {"matchExpressions": [ {"key": "location", "operator": "equal", "values": [lat.toString(), lon.toString()] } ] }
+
     } else {
-      // TODO: adjust
-      url += "contract/" + searchText;
+      // error
+      console.log("ERROR: unknown search criteria")
+      return
     }
 
-    fetch(url)
+    fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+       })
       .then((response) => {
         if (!response.ok) {
           handleError();
@@ -120,18 +204,33 @@ export default function SearchResults() {
         }
       })
       .then((data) => {
-          data["location"] = {"lat": "41.4901", "lon": "-71.3128"}
-          let d = [data];
-          setResults(d);
-        },
-        (error) => {
-          setError(error);
-          handleError(); 
+        if (data && data?.results) {
+          let dataFixed = []
+          let uniques = {}
+          for (var i = 0; i < data.results.length; i++) {
+            if (data.results[i]["coverImageUri"].includes("cover")) {
+              let r = data.results[i];
+              if (r.ipfsCid in uniques) {
+                continue
+              }
+              dataFixed.push(r);
+              uniques[r.ipfsCid] = true;
+            }
+          }
+          if (dataFixed.length > 0) {
+            setResults(dataFixed);
+            return
+          }
         }
-      ); 
+        console.log("using default search results")
+        setDefaultResults();
+      },
+      (error) => {
+        handleError(); 
+      }
+    ); 
   }
 
-  let navigate = useNavigate();
   const handleReports = () => {
     navigate("/report");
   }
@@ -143,7 +242,7 @@ export default function SearchResults() {
   </div>;
 
   return (
-    <div style={{ height: "100vh", display: "flex", "flex-direction": "column" }}>
+    <div style={{ height: "100vh", display: "flex", "flexDirection": "column" }}>
     <ThemeProvider theme={theme}>
       <CssBaseline/>
       <TopBar>
@@ -183,10 +282,10 @@ export default function SearchResults() {
                   }}/>        
                 </Grid>
                 <Grid item xs={5} md={2}>
-                  <Button variant="contained" fullWidth onClick={getResults}>Search</Button>
+                  <Button variant="contained" fullWidth onClick={updateByText}>Search</Button>
                 </Grid>
                 <Grid item xs={5} md={2}>
-                  <Button variant="contained" fullWidth>By Location</Button>
+                  <Button variant="contained" fullWidth onClick={updateByLocation}>By Location</Button>
                 </Grid>
               </Grid>
             </Grid>
@@ -206,8 +305,9 @@ export default function SearchResults() {
           <ExploreIcon />
         </ToggleButton>
       </ToggleButtonGroup>
+      <Grid>{ showPb ? <CircularProgress /> : "" }</Grid>
 
-      { viewMode=="explore" ?
+      { viewMode==="explore" ?
 
       <div style={{ width: '100%', height: '100%', position: 'relative', top: '1px' }}>
         <GoogleMapReact
@@ -234,7 +334,7 @@ export default function SearchResults() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {results.map((result) => (
-              <Grid item key={result.uid} xs={12} sm={9} md={6}>
+              <Grid item key={result.ipfsCid} xs={12} sm={9} md={6}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
@@ -242,9 +342,10 @@ export default function SearchResults() {
                     component="img"
                     sx={{
                       // 16:9
+                      //https://source.unsplash.com/random
+                      //                    alt="random"
                     }}
-                    image="https://source.unsplash.com/random"
-                    alt="random"
+                    image={result["coverImageUri"]}
                     style={{backgroundColor: 'green'}}
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
@@ -301,7 +402,7 @@ export default function SearchResults() {
                       Location
                     </Typography>
                     <Typography noWrap>
-                      {result['location']['lat']} {result['location']['lon']}
+                      {result['PinLocation']['lat']} {result['PinLocation']['lon']}
                     </Typography>
                   </CardContent>
                   <CardActions>

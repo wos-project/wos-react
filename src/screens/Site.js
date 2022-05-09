@@ -1,15 +1,10 @@
 import React from 'react';
-import { faker } from '@faker-js/faker';
-import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
-import { Link, Typography, Box, Grid, TextField, Button, Checkbox } from '@mui/material';
-import { useForm } from "react-hook-form";
-import { useState, useRef }  from 'react';
+import { Typography, Grid, TextField, Button } from '@mui/material';
+import { useState }  from 'react';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Snackbar from '@mui/material/Snackbar';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
 import QRCode from "react-qr-code";
 import MuiAlert from '@mui/material/Alert';
 
@@ -18,14 +13,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function Site() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const videoEl = useRef(null);
-  const [files, setFiles] = useState([]);
-  const { register, handleSubmit } = useForm();
-  const [data, setData] = useState("");
+  const [searchParams] = useSearchParams();
   const [showQr, setShowQr] = useState(false);
-  let navigate = useNavigate();
-
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -48,7 +37,7 @@ export default function Site() {
       <Grid item xs={11.8} md={7} >
         <Grid container direction="column" justifyContent="flex-start" alignItems="left" rowGap={2}>
           <Grid item mt={2}>
-            <Typography gutterBottom variant="h5" component="h2">{searchParams.get("a") == "add" ? "Add " : "Edit "}Site</Typography>
+            <Typography gutterBottom variant="h5" component="h2">{searchParams.get("a") === "add" ? "Add " : "Edit "}Site</Typography>
           </Grid>
 
           <Grid item xs={12} md={6}>

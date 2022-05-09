@@ -6,7 +6,7 @@ import HamburgerMenu from './HamburgerMenu';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
-import { useRef, useState }  from 'react';
+import { useRef }  from 'react';
 import DialogComingSoon from './DialogComingSoon';
 import ProfileMenu from './ProfileMenu';
 
@@ -52,7 +52,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function TopBar() {  
   const dialogEl = useRef(null);
-  const [anchorEl, setAnchorEl] = useState(null);
 
   return <AppBar position="static">
     <Toolbar variant="dense">

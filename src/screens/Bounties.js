@@ -1,19 +1,13 @@
 import React from 'react';
-import GoogleMapReact from 'google-map-react';
-import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
-import Tooltip from '@mui/material/Tooltip';
-import { faker } from '@faker-js/faker';
-import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import { Link, Typography, Box, Grid, InputLabel } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
-import { useState, useRef }  from 'react';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { useState }  from 'react';
+import Select from '@mui/material/Select';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import FormControl from '@mui/material/FormControl';
-import { IconButton } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import TopBar from '../components/TopBar';
-import { Navigate } from 'react-router-dom';
 
 const columns = [
   {
@@ -107,12 +101,6 @@ const rows = [
 export default function Bounties() {
   const [world, setWorld] = useState("Earth")
   let navigate = useNavigate();
-
-  const AnyReactComponent = ({ text }) => <div>
-    <Tooltip title="arc1">
-      <PersonPinCircleIcon/>
-    </Tooltip>
-    </div>;
   
   return <div>
     <TopBar/>

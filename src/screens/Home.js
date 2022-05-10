@@ -26,7 +26,9 @@ export default function Home() {
     },});  
 
   const routeSearchParams = () =>{ 
-    navigate("/search/" + searchParam);
+    if (searchParam) {
+      navigate("/search/" + searchParam);
+    }
   }
   
   const routeSearchLocation = () => {

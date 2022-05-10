@@ -91,7 +91,7 @@ const columns = [
         color="primary"
         size="small"
         style={{ marginLeft: 6 }}
-        href="/map"
+        href="/map/location:41.495762,-71.304584"
       >
         explore
       </Link>

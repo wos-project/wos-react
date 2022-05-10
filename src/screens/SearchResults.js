@@ -30,7 +30,8 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 import CircularProgress from  '@mui/material/CircularProgress';
-import background_img from '../assets/earth_background.jpg'
+import background_img from '../assets/earth_background.jpg';
+import ParseLocation from '../utils/geom';
 
 const theme = createTheme();
 
@@ -111,19 +112,6 @@ export default function SearchResults() {
     ])
   }
 
-  const parseGeom = (s) => {
-    if (s.includes("location")) {
-      let tokens = s.split(":");
-      if (tokens.length === 2) {
-        let tokens2 = tokens[1].split(",");
-        if  (tokens2.length === 2) {
-          return [parseFloat(tokens2[0].trim()), parseFloat(tokens2[1].trim()), null];
-        }
-      }
-    }
-    return [0, 0, true];
-  }
-
   // look for /contract/:contractAddr from app or /search from the front page
   const initResults = () => {
 
@@ -141,7 +129,7 @@ export default function SearchResults() {
     } else if (location.pathname.startsWith("/search/location")) {
       
       let { searchText } = navParams;
-      let [x, y, err] = parseGeom(searchText);
+      let [x, y, err] = ParseLocation(searchText);
       if (!err) {
         setSearchText(`location : ${x}, ${y}`);
         getResults(null, null, x, y)
@@ -155,7 +143,7 @@ export default function SearchResults() {
   }
 
   const updateByText = () => {
-    let [x, y, err] = parseGeom(searchText);
+    let [x, y, err] = ParseLocation(searchText);
     if (!err) {
       getResults(null, null, x, y);
       return;
@@ -244,8 +232,6 @@ export default function SearchResults() {
   const handleReports = () => {
     navigate("/report");
   }
-
-  const position = [41.5, -71.4]
 
   return (
     <div style={{ height: "100vh", display: "flex", "flexDirection": "column" }}>
@@ -377,6 +363,16 @@ export default function SearchResults() {
                     </Typography>
                     <Box>
                       <Typography variant="caption" sx={{fontWeight: 'bold'}}>
+                        World
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Typography noWrap>
+                        Questori
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Typography variant="caption" sx={{fontWeight: 'bold'}}>
                         Wallet Address
                       </Typography>
                       <IconButton onClick={() => {copy(result['walletAddr'])}}>
@@ -426,7 +422,7 @@ export default function SearchResults() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" onClick={() => navigate("/map")}>Explore</Button>
+                    <Button size="small" onClick={() => {let x=result['PinLocation']['lat']; let y=result['PinLocation']['lon']; navigate(`/map/location:${x},${y}`)}}>Explore</Button>
                     <Button size="small" onClick={() => alert("Click to buy or sell")}>Buy/Sell</Button>
                     <Button size="small" onClick={() => navigate("/tracker")}>Tracker</Button>
                     <Button size="small" onClick={handleReports}>Stats</Button>

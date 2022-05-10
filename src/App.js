@@ -29,7 +29,7 @@ export default function App() {
         <Route path="/tracker" element={<Tracker />}  />
         <Route path="/trackers" element={<Trackers />}  />
         <Route path="/report" element={<Report />}  />
-        <Route path="/map" element={<Map />}  />
+        <Route path="/map/:location" element={<Map />}  />
         <Route path="/sites" element={<Sites />}  />
         <Route path="/site" element={<Site />}  />
         <Route path="/nftcreate" element={<NftCreate />}  />

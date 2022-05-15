@@ -11,7 +11,7 @@ import { useEffect }  from 'react';
 import { useParams } from "react-router-dom";
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
-import ParseLocation from '../utils/geom';
+import { ParseLocation } from '../utils/geom';
 
 
 let DefaultIcon = L.icon({
@@ -29,9 +29,9 @@ export default function Map() {
 
   const getLoc = () => {
     let { location } = navParams;
-    let [x, y, err] = ParseLocation(location);
-    if (!err) {
-      return [x, y];
+    let {lat, lon, error} = ParseLocation(location);
+    if (!error) {
+      return [lat, lon];
     } else {
       return [41.5, -71.4];
     }

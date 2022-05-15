@@ -26,12 +26,12 @@ import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 import CircularProgress from  '@mui/material/CircularProgress';
 import background_img from '../assets/earth_background.jpg';
-import ParseLocation from '../utils/geom';
+import { ParseLocation, GetBoundingBoxAndCenter } from '../utils/geom';
 
 const theme = createTheme();
 
@@ -47,6 +47,8 @@ export default function SearchResults() {
   const navParams = useParams();
   const location = useLocation();
   const [results, setResults] = useState([]);
+  const [mapCenter, setMapCenter] = useState([41.5, -71.48]);
+  const [mapZoom, setMapZoom] = useState(0);
   const [viewMode, setViewMode] = useState("tiles");
   const [searchText, setSearchText] = useState("");
   const [showPb, setShowPb] = useState(false);
@@ -73,8 +75,23 @@ export default function SearchResults() {
     setDefaultResults();
   }
 
+  const updateGeoms = (res) => {
+    let geoms = []
+    for (let i=0; i<res.length; i++) {
+        geoms.push({lat: res[i].PinLocation.lat, lon: res[i].PinLocation.lon})
+    }
+    let {center, zoom, error} = GetBoundingBoxAndCenter(geoms);
+    if (error) {
+      setMapCenter([41.5, -71.3]);
+      setMapZoom(12);  
+    } else {
+      setMapCenter([center.lat, center.lon]);
+      setMapZoom(zoom);
+    }
+  }
+
   const setDefaultResults = () => {
-    setResults([
+    let r = ([
       {
           "name": "Spring Sounds",
           "description": "",
@@ -109,7 +126,9 @@ export default function SearchResults() {
           "contractAddr": "",
           "walletAddr": ""
       }
-    ])
+    ]);
+    setResults(r);
+    updateGeoms(r);
   }
 
   // look for /contract/:contractAddr from app or /search from the front page
@@ -123,35 +142,38 @@ export default function SearchResults() {
 
       let { contractAddr } = navParams;
       setSearchText("contract : " + contractAddr);
-      getResults(contractAddr, null, null, null);
+      callSearchAPI(contractAddr, null, null, null);
       return;
 
     } else if (location.pathname.startsWith("/search/location")) {
       
       let { searchText } = navParams;
-      let [x, y, err] = ParseLocation(searchText);
-      if (!err) {
-        setSearchText(`location : ${x}, ${y}`);
-        getResults(null, null, x, y)
+      let {lat, lon, error} = ParseLocation(searchText);
+      if (!error) {
+        setSearchText(`location : ${lat}, ${lon}`);
+        callSearchAPI(null, null, lat, lon)
         return;
       }
     }
-      
+
     let { searchText } = navParams;
-    setSearchText(searchText);
-    getResults(null, searchText, null, null)  
+
+    if (searchText) {
+      setSearchText(searchText);
+      callSearchAPI(null, searchText, null, null);  
+    }
   }
 
   const updateByText = () => {
-    let [x, y, err] = ParseLocation(searchText);
-    if (!err) {
-      getResults(null, null, x, y);
+    let {x, y, error} = ParseLocation(searchText);
+    if (!error) {
+      callSearchAPI(null, null, x, y);
       return;
     } else if (searchText.startsWith("0x")) {
-      getResults(searchText, null, null, null);
+      callSearchAPI(searchText, null, null, null);
       return;
     }
-    getResults(null, searchText, null, null);
+    callSearchAPI(null, searchText, null, null);
   }
 
   const updateByLocation = () => {
@@ -161,11 +183,11 @@ export default function SearchResults() {
       let x = position.coords.latitude;
       let y = position.coords.longitude;
       setSearchText(`location : ${x}, ${y}`);
-      getResults(null, null, x, y)
+      callSearchAPI(null, null, x, y)
     });
   }  
 
-  const getResults = (contractAddr, text, lat, lon) => {
+  const callSearchAPI = (contractAddr, text, lat, lon) => {
 
     let url = "https://worldos.cloud/v1/object/search";
     let body = {}
@@ -184,7 +206,7 @@ export default function SearchResults() {
 
     } else {
       // error
-      console.log("ERROR: unknown search criteria")
+      console.log("WARN: unknown search criteria")
       return
     }
 
@@ -217,10 +239,11 @@ export default function SearchResults() {
           }
           if (dataFixed.length > 0) {
             setResults(dataFixed);
+            updateGeoms(dataFixed);
             return
           }
         }
-        console.log("using default search results")
+        console.log("WARN: using default search results")
         setDefaultResults();
       },
       (error) => {
@@ -232,6 +255,11 @@ export default function SearchResults() {
   const handleReports = () => {
     navigate("/report");
   }
+
+  const ChangeMapView = () => {
+    const map = useMap();
+    map.setView(mapCenter,  mapZoom);  
+}
 
   return (
     <div style={{ height: "100vh", display: "flex", "flexDirection": "column" }}>
@@ -308,7 +336,8 @@ export default function SearchResults() {
           integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
           crossOrigin=""
         />
-        <MapContainer center={[41.5, -71.5]} zoom={9} scrollWheelZoom={false} style={{ height: 480, width: "100%" }}>
+        <MapContainer center={mapCenter} zoom={9} scrollWheelZoom={false} style={{ height: 480, width: "100%" }}>
+          <ChangeMapView></ChangeMapView>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

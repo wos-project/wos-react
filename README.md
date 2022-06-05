@@ -1,6 +1,6 @@
 # wos-react README
 
-wos-react is the ReactJS front-end for the World Object Store (WOS).  You pin and search for ARCs (augmented reality creations), including audio, video, photos, 3D objects in the WOS at geo locations.  Wallets are required to generate a pinning smart contract that guarantees a claim to pin to a location.  You can create a new ARC from just media, or import an existing NFT.
+wos-react is the ReactJS front-end for the World Object Store (WOS).  Pin and search for ARCs (augmented reality creations), including audio, video, photos, 3D objects in the WOS at geo locations.  Wallets are required to generate a pinning smart contract that guarantees a claim to pin to a location.  You can create a new ARC from just media, or import an existing NFT.
 
 ## Prerequisites
 - ReactJS

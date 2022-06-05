@@ -26,11 +26,12 @@ import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
-import TopBar from '../components/TopBar';
-import Footer from '../components/Footer';
+import { MapContainer, TileLayer, Marker, useMap, Popup } from 'react-leaflet'
 import CircularProgress from  '@mui/material/CircularProgress';
 import background_img from '../assets/earth_background.jpg';
+
+import TopBar from '../components/TopBar';
+import Footer from '../components/Footer';
 import { ParseLocation, GetBoundingBoxAndCenter } from '../utils/geom';
 
 const theme = createTheme();
@@ -76,7 +77,7 @@ export default function SearchResults() {
     setDefaultResults();
   }
 
-  const updateGeoms = (res) => {
+  const updateGeometry = (res) => {
     let geoms = []
     for (let i=0; i<res.length; i++) {
         geoms.push({lat: res[i].PinLocation.lat, lon: res[i].PinLocation.lon})
@@ -124,12 +125,12 @@ export default function SearchResults() {
               "lon": -71.282497
           },
           "ipfsCid": "QmcpVjmk4RkbciaYJKY1w17LnwShtc8orUEiuD3rdArhWH",
-          "contractAddr": "",
+          "contractAddr": "0x749c51c256b7BC75F17183d2121f91d15197B87B",
           "walletAddr": ""
       }
     ]);
     setResults(r);
-    updateGeoms(r);
+    updateGeometry(r);
   }
 
   // look for /contract/:contractAddr from app or /search from the front page
@@ -231,16 +232,16 @@ export default function SearchResults() {
           for (var i = 0; i < data.results.length; i++) {
             if (data.results[i]["coverImageUri"].includes("cover")) {
               let r = data.results[i];
-              if (r.ipfsCid in uniques) {
+              if (r.contractAddr in uniques) {
                 continue
               }
               dataFixed.push(r);
-              uniques[r.ipfsCid] = true;
+              uniques[r.contractAddr] = true;
             }
           }
           if (dataFixed.length > 0) {
             setResults(dataFixed);
-            updateGeoms(dataFixed);
+            updateGeometry(dataFixed);
             return
           }
         }
@@ -349,11 +350,14 @@ export default function SearchResults() {
               position={[result['PinLocation']['lat'], result['PinLocation']['lon']]}
               eventHandlers={{
                 click: () => {
-                  console.log("marker clicked");
                 }
               }}
               icon={DefaultIcon}
-            />
+            >
+              <Popup>
+                {result["name"]}
+              </Popup>
+            </Marker>
             ))}
         </MapContainer>
       </div> :
@@ -399,7 +403,7 @@ export default function SearchResults() {
                     </Box>
                     <Box>
                       <Typography noWrap>
-                        Questori
+                        Earth/Questori
                       </Typography>
                     </Box>
                     <Box>

@@ -37,10 +37,13 @@ const theme = createTheme();
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
-  shadowUrl: iconShadow
+  shadowUrl: iconShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [0, -51]                         
 });
 
-L.Marker.prototype.options.icon = DefaultIcon;
+//L.Marker.prototype.options.icon = DefaultIcon;
 
 export default function SearchResults() {
 
@@ -336,13 +339,16 @@ export default function SearchResults() {
           integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
           crossOrigin=""
         />
-        <MapContainer center={mapCenter} zoom={9} scrollWheelZoom={false} style={{ height: 480, width: "100%" }}>
+        <MapContainer scrollWheelZoom={false} style={{ height: 480, width: "100%" }}>
           <ChangeMapView></ChangeMapView>
+          {/*
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          */}
           <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+            attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
           />
-
             {results.map((result) => (
             <Marker
               key={result.contractAddr}
@@ -352,7 +358,9 @@ export default function SearchResults() {
                   console.log("marker clicked");
                 }
               }}
-            />))}
+              icon={DefaultIcon}
+            />
+            ))}
         </MapContainer>
       </div> :
 

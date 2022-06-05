@@ -43,9 +43,16 @@ export function GetBoundingBoxAndCenter(geomArray) {
       southeast.lon = geom.lon;
     }
   }
-  center = {
-    lat: (northwest.lat + southeast.lat) / 2.0,
-    lon: (northwest.lon + southeast.lon) / 2.0
+  if (geomArray.length === 1) {
+    center = {
+      lat: geomArray[0].lat,
+      lon: geomArray[0].lon
+    }
+  } else {
+    center = {
+      lat: (northwest.lat + southeast.lat) / 2.0,
+      lon: (northwest.lon + southeast.lon) / 2.0
+    }
   }
 
   // Google maps delta
@@ -60,13 +67,14 @@ export function GetBoundingBoxAndCenter(geomArray) {
   // Leaflet zoom
   let z1 = Math.abs(northwest.lat - southeast.lat);
   let z2 = Math.abs(northwest.lon - southeast.lon);
-  if (z2 > z1) {
-    zoom = (360/z2) - 2;    
+  if (z2 || z1) {
+    zoom = Math.log2(360/(z2 > z1 ? z2 : z1)) - 0.5
   } else {
-    zoom = (360/z1) - 2;    
+    zoom = 1
   }
-  zoom = Math.max(0, zoom);
-  zoom = Math.min(20, zoom);
+
+  zoom = Math.max(4, zoom);
+  zoom = Math.min(12, zoom);
 
   return {northwest, southeast, center, delta, zoom, error};
 }

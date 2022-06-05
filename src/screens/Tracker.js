@@ -136,7 +136,7 @@ export default function Tracker() {
           </Grid>
           <Grid item xs={12} md={12} >
             <Item>
-              {"<!-- SP8L tag -->"}<br/>
+              {"<!-- WOS tag -->"}<br/>
               {"<script async src='https://tk.worldos.earth/tid/js?id=0xcd89adf9b9ef1270d89adf9b9ef127'"}<br/>
               {" window.dataLayer=window.dataLayer||[]"}<br/>
               {" function tk(){dataLayer.push(arguments);}"}<br/>

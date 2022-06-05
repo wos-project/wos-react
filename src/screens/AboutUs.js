@@ -15,7 +15,7 @@ export default function AboutUs() {
           </Grid>
           <Grid item mt={2} alignItems="center">
             <Typography gutterBottom variant="h5" component="h2" align="center">
-              SP8L<br></br>
+              The World Object Store<br></br>
               Pin, Track, Find World Objects<br></br>
               Copyright © Questori LLC 2022<br></br>
             </Typography>

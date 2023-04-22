@@ -55,7 +55,6 @@ export default function TopBar() {
 
   return <AppBar position="static">
     <Toolbar variant="dense">
-      <HamburgerMenu></HamburgerMenu>
       {false &&
         <Search>
           <SearchIconWrapper>
@@ -70,7 +69,6 @@ export default function TopBar() {
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
         WOS beta
       </Typography>
-      <ProfileMenu></ProfileMenu>
     </Toolbar>
     <DialogComingSoon ref={dialogEl}></DialogComingSoon>
   </AppBar>;

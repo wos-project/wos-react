@@ -421,7 +421,7 @@ export default function SearchResults() {
                     </Box>
                     <Box>
                       <Typography variant="caption" sx={{fontWeight: 'bold'}}>
-                        Wallet Kind
+                        Chain Kind
                       </Typography>
                       <Typography>
                         {result['walletKind']}
@@ -458,10 +458,14 @@ export default function SearchResults() {
                   </CardContent>
                   <CardActions>
                     <Button size="small" onClick={() => {let x=result['PinLocation']['lat']; let y=result['PinLocation']['lon']; navigate(`/map/location:${x},${y}`)}}>Explore</Button>
-                    <Button size="small" onClick={() => alert("Click to buy or sell")}>Buy/Sell</Button>
-                    <Button size="small" onClick={() => navigate("/tracker")}>Tracker</Button>
-                    <Button size="small" onClick={handleReports}>Stats</Button>
-                    <Button size="small" onClick={() => alert("Click to show in-app if available")}>In-App</Button>
+                    { false && // disable for beta1
+                      <>
+                      <Button size="small" onClick={() => alert("Click to buy or sell")}>Buy/Sell</Button>
+                      <Button size="small" onClick={() => navigate("/tracker")}>Tracker</Button>
+                      <Button size="small" onClick={handleReports}>Stats</Button>
+                      <Button size="small" onClick={() => alert("Click to show in-app if available")}>In-App</Button>
+                      </>
+                    }
                   </CardActions>
                 </Card>
               </Grid>
